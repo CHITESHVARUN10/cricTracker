@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IPL Insights - Insights Lab</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#a33d23",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#001f29",
+                        "surface-container-low": "#f0f3ff",
+                        "secondary-fixed": "#8cf5e4",
+                        "surface-bright": "#f9f9ff",
+                        "surface-container-high": "#e2e8f8",
+                        "on-tertiary-fixed-variant": "#2b4b58",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#ebf1ff",
+                        "primary-container": "#e76f51",
+                        "background": "#f9f9ff",
+                        "on-primary": "#ffffff",
+                        "on-background": "#151c27",
+                        "secondary-fixed-dim": "#6fd8c8",
+                        "tertiary-fixed-dim": "#abcbdb",
+                        "inverse-primary": "#ffb4a2",
+                        "surface-container-highest": "#dce2f3",
+                        "on-surface-variant": "#57423d",
+                        "tertiary-container": "#7797a6",
+                        "tertiary": "#436370",
+                        "secondary-container": "#8cf5e4",
+                        "on-primary-container": "#590f00",
+                        "surface-variant": "#dce2f3",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#c6e8f8",
+                        "surface-container": "#e7eefe",
+                        "secondary": "#006a60",
+                        "on-tertiary-container": "#0c2f3b",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#2a313d",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#f9f9ff",
+                        "on-secondary-container": "#007166",
+                        "on-primary-fixed-variant": "#83260e",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#3c0700",
+                        "surface-tint": "#a33d23",
+                        "on-secondary-fixed": "#00201c",
+                        "surface-dim": "#d3daea",
+                        "primary-fixed": "#ffdad2",
+                        "outline": "#8a716c",
+                        "on-secondary-fixed-variant": "#005048",
+                        "outline-variant": "#dec0b9",
+                        "on-surface": "#151c27",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#ffb4a2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "container-max": "1280px",
+                        "xl": "64px",
+                        "lg": "40px",
+                        "xs": "4px",
+                        "sidebar-width": "280px",
+                        "base": "8px",
+                        "md": "24px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Archivo Narrow"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["JetBrains Mono"],
+                        "headline-md": ["Archivo Narrow"],
+                        "headline-lg-mobile": ["Archivo Narrow"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "body-sm": ["Plus Jakarta Sans"],
+                        "label-md": ["JetBrains Mono"],
+                        "display-lg": ["Archivo Narrow"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #f9f9ff; color: #151c27; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .shadow-ambient { box-shadow: 0px 4px 20px rgba(231, 111, 81, 0.08); }
+        .table-row-hover:hover { background-color: rgba(163, 61, 35, 0.05); }
+    </style>
+</head>
+<body class="font-body-sm antialiased overflow-x-hidden min-h-screen">
+<!-- TopNavBar -->
+<nav class="fixed top-0 z-50 w-full flex justify-between items-center px-gutter h-16 bg-surface/80 backdrop-blur-md dark:bg-surface-dim/80 bg-surface-container-low dark:bg-surface-container-lowest shadow-sm">
+<div class="flex items-center gap-xl">
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">IPL Insights</span>
+<div class="hidden md:flex gap-lg items-center">
+<a class="text-primary dark:text-primary-fixed-dim border-b-2 border-primary dark:border-primary-fixed-dim pb-1 font-label-md text-label-md hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Dashboard</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-md text-label-md hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Teams</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-md text-label-md hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Players</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-md text-label-md hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Venues</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-md text-label-md hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#">Schedule</a>
+</div>
+</div>
+<div class="flex gap-md text-primary dark:text-primary-fixed-dim items-center">
+<button class="hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 active:scale-95 duration-150"><span class="material-symbols-outlined">notifications</span></button>
+<button class="hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 active:scale-95 duration-150"><span class="material-symbols-outlined">account_circle</span></button>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col gap-base p-md border-r border-outline-variant/30 w-sidebar-width h-screen fixed left-0 top-0 pt-20 bg-surface-container-lowest dark:bg-surface-container-low shadow-[0px_4px_20px_rgba(231,111,81,0.08)] z-40">
+<div class="mb-lg">
+<h2 class="font-headline-md text-primary">Filters</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Analytical Parameters</p>
+</div>
+<nav class="flex-1 flex flex-col gap-sm">
+<a class="flex items-center gap-sm px-sm py-xs bg-primary-container text-on-primary-container rounded-lg font-bold hover:bg-primary/10 transition-all duration-200 active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-md text-label-md">Season Overview</span>
+</a>
+<a class="flex items-center gap-sm px-sm py-xs text-on-surface-variant dark:text-on-surface-variant hover:bg-primary/10 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">toll</span>
+<span class="font-label-md text-label-md">Toss Analytics</span>
+</a>
+<a class="flex items-center gap-sm px-sm py-xs text-on-surface-variant dark:text-on-surface-variant hover:bg-primary/10 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">timer</span>
+<span class="font-label-md text-label-md">Powerplay Stats</span>
+</a>
+<a class="flex items-center gap-sm px-sm py-xs text-on-surface-variant dark:text-on-surface-variant hover:bg-primary/10 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">sports_cricket</span>
+<span class="font-label-md text-label-md">Death Overs</span>
+</a>
+<a class="flex items-center gap-sm px-sm py-xs text-on-surface-variant dark:text-on-surface-variant hover:bg-primary/10 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">compare_arrows</span>
+<span class="font-label-md text-label-md">Matchups</span>
+</a>
+</nav>
+<button class="w-full py-sm bg-primary-container text-on-primary font-label-md text-label-md rounded-lg shadow-sm hover:opacity-90 transition-opacity mt-auto mb-lg">Apply Filters</button>
+<div class="flex flex-col gap-sm border-t border-outline-variant/30 pt-md">
+<a class="flex items-center gap-sm text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="pt-24 pb-xl px-gutter md:ml-sidebar-width min-h-screen">
+<!-- Header -->
+<header class="mb-lg">
+<h1 class="font-display-lg text-display-lg text-on-surface mb-xs">Insights Lab</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Venue deep dive, team comparison, and player form tracker in one place.</p>
+</header>
+<!-- Top Section -->
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-lg mb-lg">
+<!-- Left Column: Venue Deep Dive -->
+<section class="bg-surface-container-lowest rounded-xl shadow-ambient p-lg flex flex-col gap-md border border-surface-dim/30">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">stadium</span> Venue deep dive
+                </h3>
+<div class="w-full h-64 bg-surface-container-lowest relative">
+<canvas id="venueChart"></canvas>
+</div>
+<div class="overflow-x-auto mt-sm border rounded-lg border-surface-variant">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low font-label-sm text-label-sm text-on-tertiary-fixed border-b border-surface-variant">
+<tr>
+<th class="py-sm px-md whitespace-nowrap">Venue</th>
+<th class="py-sm px-md text-right whitespace-nowrap">Matches</th>
+<th class="py-sm px-md text-right whitespace-nowrap">Bat 1st Wins</th>
+<th class="py-sm px-md text-right whitespace-nowrap">Chase Wins</th>
+<th class="py-sm px-md text-right whitespace-nowrap text-primary">Bat 1st WR</th>
+<th class="py-sm px-md text-right whitespace-nowrap">Avg 1st Inn</th>
+</tr>
+</thead>
+<tbody class="font-label-md text-label-md text-on-surface divide-y divide-surface-variant">
+<tr class="table-row-hover odd:bg-surface-bright/50">
+<td class="py-sm px-md">Wankhede</td><td class="py-sm px-md text-right">109</td><td class="py-sm px-md text-right">51</td><td class="py-sm px-md text-right">57</td><td class="py-sm px-md text-right font-bold text-primary">46.8%</td><td class="py-sm px-md text-right">169</td>
+</tr>
+<tr class="table-row-hover odd:bg-surface-bright/50">
+<td class="py-sm px-md">Chinnaswamy</td><td class="py-sm px-md text-right">88</td><td class="py-sm px-md text-right">37</td><td class="py-sm px-md text-right">47</td><td class="py-sm px-md text-right font-bold text-primary">42.0%</td><td class="py-sm px-md text-right">172</td>
+</tr>
+<tr class="table-row-hover odd:bg-surface-bright/50">
+<td class="py-sm px-md">Eden Gardens</td><td class="py-sm px-md text-right">86</td><td class="py-sm px-md text-right">35</td><td class="py-sm px-md text-right">51</td><td class="py-sm px-md text-right font-bold text-primary">40.7%</td><td class="py-sm px-md text-right">164</td>
+</tr>
+<tr class="table-row-hover odd:bg-surface-bright/50">
+<td class="py-sm px-md">Chepauk</td><td class="py-sm px-md text-right">76</td><td class="py-sm px-md text-right">46</td><td class="py-sm px-md text-right">29</td><td class="py-sm px-md text-right font-bold text-primary">60.5%</td><td class="py-sm px-md text-right">163</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Right Column: Team Comparison -->
+<section class="bg-surface-container-lowest rounded-xl shadow-ambient p-lg flex flex-col gap-md border border-surface-dim/30">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-sm">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">group</span> Team comparison
+                    </h3>
+<div class="flex gap-sm">
+<select class="form-select bg-surface-bright border-outline-variant text-on-surface font-label-md rounded-md focus:border-primary focus:ring focus:ring-primary/20 text-sm py-xs pl-sm pr-lg">
+<option>CSK</option><option>MI</option><option>RCB</option>
+</select>
+<span class="text-on-surface-variant self-center font-label-md text-label-md">vs</span>
+<select class="form-select bg-surface-bright border-outline-variant text-on-surface font-label-md rounded-md focus:border-primary focus:ring focus:ring-primary/20 text-sm py-xs pl-sm pr-lg">
+<option>MI</option><option>CSK</option><option>RCB</option>
+</select>
+</div>
+</div>
+<div class="w-full h-64 bg-surface-container-lowest relative">
+<canvas id="teamChart"></canvas>
+</div>
+<div class="overflow-x-auto mt-sm border rounded-lg border-surface-variant">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low font-label-sm text-label-sm text-on-tertiary-fixed border-b border-surface-variant">
+<tr>
+<th class="py-sm px-md whitespace-nowrap">Team</th>
+<th class="py-sm px-md text-right whitespace-nowrap">Mat</th>
+<th class="py-sm px-md text-right whitespace-nowrap">Wins</th>
+<th class="py-sm px-md text-right whitespace-nowrap">Bat 1st W</th>
+<th class="py-sm px-md text-right whitespace-nowrap">Chase W</th>
+<th class="py-sm px-md text-right whitespace-nowrap text-primary">WR</th>
+<th class="py-sm px-md text-right whitespace-nowrap">Bat 1st WR</th>
+<th class="py-sm px-md text-right whitespace-nowrap">Chase WR</th>
+</tr>
+</thead>
+<tbody class="font-label-md text-label-md text-on-surface divide-y divide-surface-variant">
+<tr class="table-row-hover">
+<td class="py-sm px-md font-bold">CSK</td>
+<td class="py-sm px-md text-right">36</td>
+<td class="py-sm px-md text-right">20</td>
+<td class="py-sm px-md text-right">11</td>
+<td class="py-sm px-md text-right">9</td>
+<td class="py-sm px-md text-right font-bold text-primary">55.5%</td>
+<td class="py-sm px-md text-right">61.1%</td>
+<td class="py-sm px-md text-right">50.0%</td>
+</tr>
+<tr class="table-row-hover bg-surface-bright/50">
+<td class="py-sm px-md font-bold">MI</td>
+<td class="py-sm px-md text-right">36</td>
+<td class="py-sm px-md text-right">16</td>
+<td class="py-sm px-md text-right">7</td>
+<td class="py-sm px-md text-right">9</td>
+<td class="py-sm px-md text-right font-bold text-tertiary">44.4%</td>
+<td class="py-sm px-md text-right">38.8%</td>
+<td class="py-sm px-md text-right">50.0%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+<hr class="border-t border-outline-variant/30 my-xl"/>
+<!-- Bottom Section: Player Form Tracker -->
+<section class="bg-surface-container-lowest rounded-xl shadow-ambient p-lg flex flex-col gap-md border border-surface-dim/30">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-sm">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">person_play</span> Player form tracker
+                </h3>
+<div class="relative w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="form-input w-full bg-surface-bright border-outline-variant text-on-surface font-label-md rounded-md focus:border-primary focus:ring focus:ring-primary/20 text-sm py-xs pl-lg pr-sm" placeholder="Search player..." type="text" value="V Kohli"/>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-xl mt-md">
+<!-- Inner Left: Charts and Season Stats -->
+<div class="lg:col-span-2 flex flex-col gap-lg">
+<div class="w-full h-64 bg-surface-container-lowest relative border-b border-surface-variant/50 pb-md">
+<canvas id="playerChart"></canvas>
+</div>
+<div class="overflow-x-auto border rounded-lg border-surface-variant">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low font-label-sm text-label-sm text-on-tertiary-fixed border-b border-surface-variant">
+<tr>
+<th class="py-sm px-md whitespace-nowrap">Season</th>
+<th class="py-sm px-md text-right whitespace-nowrap text-primary">Runs</th>
+<th class="py-sm px-md text-right whitespace-nowrap">Balls</th>
+<th class="py-sm px-md text-right whitespace-nowrap">Strike Rate</th>
+<th class="py-sm px-md text-right whitespace-nowrap text-secondary">Wickets</th>
+<th class="py-sm px-md text-right whitespace-nowrap">Economy</th>
+</tr>
+</thead>
+<tbody class="font-label-md text-label-md text-on-surface divide-y divide-surface-variant">
+<tr class="table-row-hover odd:bg-surface-bright/50">
+<td class="py-sm px-md">2023</td><td class="py-sm px-md text-right font-bold text-primary">639</td><td class="py-sm px-md text-right">457</td><td class="py-sm px-md text-right">139.8</td><td class="py-sm px-md text-right">0</td><td class="py-sm px-md text-right">-</td>
+</tr>
+<tr class="table-row-hover odd:bg-surface-bright/50">
+<td class="py-sm px-md">2022</td><td class="py-sm px-md text-right font-bold text-primary">341</td><td class="py-sm px-md text-right">294</td><td class="py-sm px-md text-right">115.9</td><td class="py-sm px-md text-right">0</td><td class="py-sm px-md text-right">-</td>
+</tr>
+<tr class="table-row-hover odd:bg-surface-bright/50">
+<td class="py-sm px-md">2021</td><td class="py-sm px-md text-right font-bold text-primary">405</td><td class="py-sm px-md text-right">339</td><td class="py-sm px-md text-right">119.4</td><td class="py-sm px-md text-right">0</td><td class="py-sm px-md text-right">-</td>
+</tr>
+<tr class="table-row-hover odd:bg-surface-bright/50">
+<td class="py-sm px-md">2020</td><td class="py-sm px-md text-right font-bold text-primary">466</td><td class="py-sm px-md text-right">384</td><td class="py-sm px-md text-right">121.3</td><td class="py-sm px-md text-right">0</td><td class="py-sm px-md text-right">-</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Inner Right: Recent Innings & Photo -->
+<div class="flex flex-col gap-lg items-center lg:items-end">
+<div class="w-full overflow-x-auto border rounded-lg border-surface-variant">
+<div class="bg-surface-container-low px-md py-sm border-b border-surface-variant font-label-sm text-label-sm text-on-tertiary-fixed">Recent batting innings (Last 10)</div>
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-bright font-label-sm text-label-sm text-on-surface-variant border-b border-surface-variant">
+<tr>
+<th class="py-xs px-sm whitespace-nowrap">Date</th>
+<th class="py-xs px-sm whitespace-nowrap">Venue</th>
+<th class="py-xs px-sm text-right whitespace-nowrap text-primary">Runs</th>
+<th class="py-xs px-sm text-right whitespace-nowrap">Total</th>
+</tr>
+</thead>
+<tbody class="font-label-md text-label-md text-on-surface divide-y divide-surface-variant">
+<tr class="table-row-hover"><td class="py-xs px-sm text-xs">21-May</td><td class="py-xs px-sm text-xs">Chinnaswamy</td><td class="py-xs px-sm text-right font-bold">101*</td><td class="py-xs px-sm text-right text-xs text-on-surface-variant">197</td></tr>
+<tr class="table-row-hover bg-surface-bright/30"><td class="py-xs px-sm text-xs">18-May</td><td class="py-xs px-sm text-xs">Rajiv Gandhi</td><td class="py-xs px-sm text-right font-bold">100</td><td class="py-xs px-sm text-right text-xs text-on-surface-variant">186</td></tr>
+<tr class="table-row-hover"><td class="py-xs px-sm text-xs">14-May</td><td class="py-xs px-sm text-xs">Sawai Mansingh</td><td class="py-xs px-sm text-right font-bold">18</td><td class="py-xs px-sm text-right text-xs text-on-surface-variant">171</td></tr>
+<tr class="table-row-hover bg-surface-bright/30"><td class="py-xs px-sm text-xs">09-May</td><td class="py-xs px-sm text-xs">Wankhede</td><td class="py-xs px-sm text-right font-bold">1</td><td class="py-xs px-sm text-right text-xs text-on-surface-variant">199</td></tr>
+<tr class="table-row-hover"><td class="py-xs px-sm text-xs">06-May</td><td class="py-xs px-sm text-xs">Arun Jaitley</td><td class="py-xs px-sm text-right font-bold">55</td><td class="py-xs px-sm text-right text-xs text-on-surface-variant">181</td></tr>
+</tbody>
+</table>
+</div>
+<div class="mt-md w-[180px] h-[180px] rounded-full overflow-hidden border-4 border-surface-container-low shadow-sm self-center">
+<img class="w-full h-full object-cover" data-alt="A highly detailed close up portrait photo of a professional cricket player looking intensely forward. Bright, clean light-mode studio lighting. High contrast with a subtle warm orange backlight reflecting the team accent color. The background is a stark, minimal solid white surface to emphasize the subject." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAebP4PpiFG55nkOL3MvszyaYuCSS-eDyifHJOjfR9_BoPXiARlfq1nRI31HPXS5A6Q5Se_tU1eGZlVSIk6VC6LvKU7o6ek7mQTLhkUKMDAW689kZu3flLPMAhHXnaQci7IZ8nmPDOWV9ZgxfNg65IsHxShk1TuwGK4ElQGW6EJl5Nju5lgMnsCGrq07kl1WzDzF64zhY4Dejr1ewOhRYNCOMTiyCPiJr49INujklkLi6a3EHHg3fYnAA"/>
+</div>
+</div>
+</div>
+</section>
+</main>
+<script>
+        // Chart configuration defaults based on theme
+        Chart.defaults.font.family = "'JetBrains Mono', monospace";
+        Chart.defaults.color = '#57423d'; // on-surface-variant
+        Chart.defaults.scale.grid.color = 'rgba(220, 226, 243, 0.5)'; // surface-variant with opacity
+
+        // 1. Venue Chart (Horizontal Bar, Cividis-ish gradient approximation)
+        const ctxVenue = document.getElementById('venueChart').getContext('2d');
+        // Simulating Cividis gradient across bars
+        const cividisColors = ['#00204d', '#31446b', '#666970', '#958f78', '#cbbe72', '#ffea46'];
+        
+        new Chart(ctxVenue, {
+            type: 'bar',
+            data: {
+                labels: ['Chepauk', 'Wankhede', 'Chinnaswamy', 'Eden Gardens', 'Rajiv Gandhi', 'Narendra Modi', 'Ekana', 'Arun Jaitley'],
+                datasets: [{
+                    label: 'Bat First Win %',
+                    data: [60.5, 46.8, 42.0, 40.7, 48.2, 45.5, 52.1, 44.0],
+                    backgroundColor: cividisColors,
+                    borderRadius: 4,
+                    barPercentage: 0.7
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) { return context.parsed.x + '%'; }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: { callback: function(value) { return value + "%" } }
+                    }
+                }
+            }
+        });
+
+        // 2. Team Chart (Vertical Bar, Team A vs Team B)
+        const ctxTeam = document.getElementById('teamChart').getContext('2d');
+        new Chart(ctxTeam, {
+            type: 'bar',
+            data: {
+                labels: ['Overall WR', 'Bat 1st WR', 'Chase WR', 'Powerplay SR'],
+                datasets: [
+                    {
+                        label: 'CSK',
+                        data: [55.5, 61.1, 50.0, 128.4],
+                        backgroundColor: '#a33d23', // primary
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'MI',
+                        data: [44.4, 38.8, 50.0, 132.1],
+                        backgroundColor: '#436370', // tertiary
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: { usePointStyle: true, boxWidth: 8 }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // 3. Player Form Chart (Line Chart, Runs and Wickets)
+        const ctxPlayer = document.getElementById('playerChart').getContext('2d');
+        new Chart(ctxPlayer, {
+            type: 'line',
+            data: {
+                labels: ['2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'],
+                datasets: [
+                    {
+                        label: 'Runs',
+                        data: [973, 308, 530, 464, 466, 405, 341, 639],
+                        borderColor: '#e76f51', // primary-container
+                        backgroundColor: '#e76f51',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        tension: 0.3,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Wickets',
+                        data: [0, 0, 0, 0, 0, 0, 0, 0], // Example data for Kohli
+                        borderColor: '#006a60', // secondary
+                        backgroundColor: '#006a60',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        tension: 0.3,
+                        yAxisID: 'y1'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 8 } }
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: { display: true, text: 'Runs' }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: { display: true, text: 'Wickets' },
+                        grid: { drawOnChartArea: false },
+                        min: 0,
+                        max: 20
+                    }
+                }
+            }
+        });
+    </script>
+</body></html>

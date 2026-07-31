@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IPL Insights - Matchups</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&amp;family=JetBrains+Mono:wght@400..800&amp;family=Plus+Jakarta+Sans:wght@400..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-tint": "#a33d23",
+                      "on-secondary": "#ffffff",
+                      "background": "#f9f9ff",
+                      "primary-fixed-dim": "#ffb4a2",
+                      "inverse-primary": "#ffb4a2",
+                      "outline-variant": "#dec0b9",
+                      "inverse-on-surface": "#ebf1ff",
+                      "tertiary-fixed-dim": "#abcbdb",
+                      "error-container": "#ffdad6",
+                      "secondary-fixed": "#8cf5e4",
+                      "surface-container-low": "#f0f3ff",
+                      "inverse-surface": "#2a313d",
+                      "on-background": "#151c27",
+                      "surface-container-highest": "#dce2f3",
+                      "surface-bright": "#f9f9ff",
+                      "surface": "#f9f9ff",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-fixed-dim": "#6fd8c8",
+                      "outline": "#8a716c",
+                      "on-tertiary-fixed": "#001f29",
+                      "on-primary-container": "#590f00",
+                      "surface-dim": "#d3daea",
+                      "primary-fixed": "#ffdad2",
+                      "surface-container": "#e7eefe",
+                      "on-surface": "#151c27",
+                      "on-primary-fixed-variant": "#83260e",
+                      "on-error-container": "#93000a",
+                      "tertiary": "#436370",
+                      "tertiary-fixed": "#c6e8f8",
+                      "secondary-container": "#8cf5e4",
+                      "on-tertiary-fixed-variant": "#2b4b58",
+                      "on-secondary-container": "#007166",
+                      "error": "#ba1a1a",
+                      "on-error": "#ffffff",
+                      "on-tertiary-container": "#0c2f3b",
+                      "on-primary-fixed": "#3c0700",
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed": "#00201c",
+                      "surface-container-high": "#e2e8f8",
+                      "surface-variant": "#dce2f3",
+                      "primary": "#a33d23",
+                      "secondary": "#006a60",
+                      "on-secondary-fixed-variant": "#005048",
+                      "tertiary-container": "#7797a6",
+                      "on-tertiary": "#ffffff",
+                      "primary-container": "#e76f51",
+                      "on-surface-variant": "#57423d"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-max": "1280px",
+                      "xl": "64px",
+                      "lg": "40px",
+                      "xs": "4px",
+                      "md": "24px",
+                      "gutter": "24px",
+                      "sidebar-width": "280px",
+                      "sm": "12px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "body-sm": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "label-md": [
+                              "JetBrains Mono"
+                      ],
+                      "body-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-md": [
+                              "Archivo Narrow"
+                      ],
+                      "headline-lg-mobile": [
+                              "Archivo Narrow"
+                      ],
+                      "label-sm": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-lg": [
+                              "Archivo Narrow"
+                      ],
+                      "display-lg": [
+                              "Archivo Narrow"
+                      ]
+              },
+              "fontSize": {
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body { background-color: #f9f9ff; }
+        /* Ambient shadows */
+        .shadow-ambient { box-shadow: 0px 4px 20px rgba(231, 111, 81, 0.08); }
+        .shadow-ambient-lg { box-shadow: 0px 8px 30px rgba(231, 111, 81, 0.12); }
+        .hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .hover-lift:hover { transform: translateY(-2px); box-shadow: 0px 8px 30px rgba(231, 111, 81, 0.12); }
+        
+        /* Bar chart animations */
+        @keyframes growUp {
+            from { height: 0; }
+            to { height: var(--target-height); }
+        }
+        .bar-animate {
+            animation: growUp 1s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<nav class="bg-surface/80 backdrop-blur-md dark:bg-surface-dim/80 docked full-width top-0 z-50 bg-surface-container-low dark:bg-surface-container-lowest shadow-sm flex justify-between items-center w-full px-gutter h-16 sticky">
+<div class="flex items-center gap-md">
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">IPL Insights</span>
+</div>
+<div class="hidden md:flex items-center gap-sm">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 px-3 py-4 font-label-md text-label-md" href="#">Dashboard</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 px-3 py-4 font-label-md text-label-md" href="#">Teams</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 px-3 py-4 font-label-md text-label-md" href="#">Players</a>
+<a class="text-primary dark:text-primary-fixed-dim border-b-2 border-primary dark:border-primary-fixed-dim pb-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 px-3 py-4 font-label-md text-label-md" href="#">Matchups</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200 px-3 py-4 font-label-md text-label-md" href="#">Venues</a>
+</div>
+<div class="flex items-center gap-sm">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</nav>
+<div class="flex flex-1 overflow-hidden relative">
+<!-- SideNavBar -->
+<aside class="hidden xl:flex bg-surface-container-lowest dark:bg-surface-container-low w-sidebar-width h-[calc(100vh-4rem)] sticky top-16 bg-surface-container-lowest dark:bg-surface-container-low shadow-[0px_4px_20px_rgba(231,111,81,0.08)] flex-col gap-base p-md border-r border-outline-variant/30 shrink-0">
+<div class="mb-4">
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold">Filters</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Analytical Parameters</p>
+</div>
+<nav class="flex-1 overflow-y-auto pr-2 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-on-surface-variant hover:bg-primary/10 transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-label-md text-label-md">Season Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-on-surface-variant hover:bg-primary/10 transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="toll">toll</span>
+<span class="font-label-md text-label-md">Toss Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-on-surface-variant hover:bg-primary/10 transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="timer">timer</span>
+<span class="font-label-md text-label-md">Powerplay Stats</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-on-surface-variant hover:bg-primary/10 transition-all duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="sports_cricket">sports_cricket</span>
+<span class="font-label-md text-label-md">Death Overs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container rounded-lg font-bold font-label-md text-label-md translate-x-1 shadow-sm" href="#">
+<span class="material-symbols-outlined" data-icon="compare_arrows">compare_arrows</span>
+<span class="">Matchups</span>
+</a>
+</nav>
+<button class="w-full bg-primary-container text-white py-2 rounded-lg font-label-md text-label-md hover:bg-primary transition-colors mb-4 mt-auto">Apply Filters</button>
+<div class="border-t border-outline-variant/30 pt-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="settings">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="help">help</span>
+<span class="font-label-sm text-label-sm">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 p-4 md:p-lg lg:p-xl overflow-y-auto">
+<div class="max-w-[1200px] mx-auto space-y-lg">
+<!-- Matchup Card -->
+<section class="bg-surface-container-lowest rounded-xl shadow-ambient p-6 md:p-8">
+<header class="mb-6 border-b border-outline-variant/20 pb-4">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Batter vs bowler matchup</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Head-to-head historical T20 statistics</p>
+</header>
+<!-- Player Selectors -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md mb-8">
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2">Batter</label>
+<div class="relative">
+<select class="w-full bg-[#fff9f0] border border-outline-variant/50 rounded-lg py-3 px-4 font-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary appearance-none cursor-pointer">
+<option selected="">Virat Kohli</option>
+<option>Rohit Sharma</option>
+<option>MS Dhoni</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">arrow_drop_down</span>
+</div>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2">Bowler</label>
+<div class="relative">
+<select class="w-full bg-[#fff9f0] border border-outline-variant/50 rounded-lg py-3 px-4 font-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary appearance-none cursor-pointer">
+<option selected="">Sunil Narine</option>
+<option>Jasprit Bumrah</option>
+<option>Rashid Khan</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">arrow_drop_down</span>
+</div>
+</div>
+</div>
+<!-- Metrics Row -->
+<div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+<div class="bg-surface p-4 rounded-lg border border-outline-variant/10 text-center hover-lift">
+<span class="block font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Runs</span>
+<span class="block font-display-lg text-display-lg text-primary">102</span>
+</div>
+<div class="bg-surface p-4 rounded-lg border border-outline-variant/10 text-center hover-lift">
+<span class="block font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Balls</span>
+<span class="block font-display-lg text-display-lg text-on-surface">105</span>
+</div>
+<div class="bg-surface p-4 rounded-lg border border-outline-variant/10 text-center hover-lift">
+<span class="block font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Boundaries</span>
+<span class="block font-display-lg text-display-lg text-on-surface">8</span>
+</div>
+<div class="bg-surface p-4 rounded-lg border border-outline-variant/10 text-center hover-lift">
+<span class="block font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Dots</span>
+<span class="block font-display-lg text-display-lg text-on-surface">34</span>
+</div>
+<div class="bg-surface p-4 rounded-lg border border-outline-variant/10 text-center hover-lift">
+<span class="block font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Dismissals</span>
+<span class="block font-display-lg text-display-lg text-error">4</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-3 text-center mb-10 border border-outline-variant/20">
+<p class="font-body-sm text-body-sm flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm text-tertiary">info</span>
+                            Most common dismissal kind in this matchup: <strong class="font-bold">Caught</strong>
+</p>
+</div>
+<!-- Chart Section -->
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6">Runs off bat distribution</h3>
+<div class="relative h-64 flex items-end justify-between px-2 md:px-8 border-b-2 border-outline-variant/30 pb-2 pt-8">
+<!-- Y Axis markings (conceptual) -->
+<div class="absolute left-0 top-0 bottom-0 w-full flex flex-col justify-between z-0 pointer-events-none opacity-20">
+<div class="border-t border-outline-variant/50 w-full"></div>
+<div class="border-t border-outline-variant/50 w-full"></div>
+<div class="border-t border-outline-variant/50 w-full"></div>
+<div class="border-t border-outline-variant/50 w-full"></div>
+</div>
+<!-- Bars -->
+<div class="relative z-10 flex flex-col items-center w-1/6 px-1 md:px-4 group">
+<span class="text-on-surface-variant font-label-sm text-label-sm mb-2 opacity-0 group-hover:opacity-100 transition-opacity">34</span>
+<div class="w-full bg-primary-container/80 rounded-t-sm bar-animate" style="--target-height: 80%; height: 0;"></div>
+<span class="font-label-md text-label-md mt-2">0</span>
+</div>
+<div class="relative z-10 flex flex-col items-center w-1/6 px-1 md:px-4 group">
+<span class="text-on-surface-variant font-label-sm text-label-sm mb-2 opacity-0 group-hover:opacity-100 transition-opacity">42</span>
+<div class="w-full bg-primary-container/90 rounded-t-sm bar-animate" style="--target-height: 100%; height: 0; animation-delay: 0.1s;"></div>
+<span class="font-label-md text-label-md mt-2">1</span>
+</div>
+<div class="relative z-10 flex flex-col items-center w-1/6 px-1 md:px-4 group">
+<span class="text-on-surface-variant font-label-sm text-label-sm mb-2 opacity-0 group-hover:opacity-100 transition-opacity">15</span>
+<div class="w-full bg-primary-container/70 rounded-t-sm bar-animate" style="--target-height: 35%; height: 0; animation-delay: 0.2s;"></div>
+<span class="font-label-md text-label-md mt-2">2</span>
+</div>
+<div class="relative z-10 flex flex-col items-center w-1/6 px-1 md:px-4 group">
+<span class="text-on-surface-variant font-label-sm text-label-sm mb-2 opacity-0 group-hover:opacity-100 transition-opacity">2</span>
+<div class="w-full bg-primary-container/50 rounded-t-sm bar-animate" style="--target-height: 10%; height: 0; animation-delay: 0.3s;"></div>
+<span class="font-label-md text-label-md mt-2">3</span>
+</div>
+<div class="relative z-10 flex flex-col items-center w-1/6 px-1 md:px-4 group">
+<span class="text-on-surface-variant font-label-sm text-label-sm mb-2 opacity-0 group-hover:opacity-100 transition-opacity">6</span>
+<div class="w-full bg-primary-container/80 rounded-t-sm bar-animate" style="--target-height: 25%; height: 0; animation-delay: 0.4s;"></div>
+<span class="font-label-md text-label-md mt-2">4</span>
+</div>
+<div class="relative z-10 flex flex-col items-center w-1/6 px-1 md:px-4 group">
+<span class="text-on-surface-variant font-label-sm text-label-sm mb-2 opacity-0 group-hover:opacity-100 transition-opacity">2</span>
+<div class="w-full bg-primary-container/70 rounded-t-sm bar-animate" style="--target-height: 10%; height: 0; animation-delay: 0.5s;"></div>
+<span class="font-label-md text-label-md mt-2">6</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-dim dark:bg-surface-container-highest w-full py-md mt-xl flat flex flex-col items-center justify-center gap-sm px-gutter">
+<div class="flex gap-4 mb-2">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary underline transition-all" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary underline transition-all" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary underline transition-all" href="#">Data Methodology</a>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 IPL Cricket Analytics Hub. All Rights Reserved.</p>
+</footer>
+</main>
+</div>
+</body></html>

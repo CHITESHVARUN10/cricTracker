@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IPL Match Insights - Players</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Archivo+Narrow:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f0f3ff",
+                        "outline-variant": "#dec0b9",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#e76f51",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed": "#3c0700",
+                        "on-primary-container": "#590f00",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#ffb4a2",
+                        "surface-variant": "#dce2f3",
+                        "secondary-container": "#8cf5e4",
+                        "surface": "#f9f9ff",
+                        "on-secondary-fixed": "#00201c",
+                        "surface-dim": "#d3daea",
+                        "on-secondary-fixed-variant": "#005048",
+                        "tertiary-container": "#7797a6",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#e7eefe",
+                        "surface-container-high": "#e2e8f8",
+                        "outline": "#8a716c",
+                        "on-primary": "#ffffff",
+                        "primary": "#a33d23",
+                        "primary-fixed": "#ffdad2",
+                        "surface-bright": "#f9f9ff",
+                        "on-primary-fixed-variant": "#83260e",
+                        "surface-container-highest": "#dce2f3",
+                        "background": "#f9f9ff",
+                        "on-background": "#151c27",
+                        "inverse-surface": "#2a313d",
+                        "secondary-fixed-dim": "#6fd8c8",
+                        "on-tertiary-fixed-variant": "#2b4b58",
+                        "tertiary-fixed-dim": "#abcbdb",
+                        "tertiary-fixed": "#c6e8f8",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#ffb4a2",
+                        "on-surface": "#151c27",
+                        "inverse-on-surface": "#ebf1ff",
+                        "on-tertiary-fixed": "#001f29",
+                        "secondary-fixed": "#8cf5e4",
+                        "secondary": "#006a60",
+                        "on-secondary-container": "#007166",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#0c2f3b",
+                        "tertiary": "#436370",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#57423d",
+                        "surface-tint": "#a33d23"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "xl": "64px",
+                        "md": "24px",
+                        "gutter": "24px",
+                        "sidebar-width": "280px",
+                        "xs": "4px",
+                        "lg": "40px",
+                        "base": "8px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["JetBrains Mono"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Archivo Narrow"],
+                        "label-md": ["JetBrains Mono"],
+                        "body-sm": ["Plus Jakarta Sans"],
+                        "headline-md": ["Archivo Narrow"],
+                        "display-lg": ["Archivo Narrow"],
+                        "headline-lg": ["Archivo Narrow"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .custom-shadow {
+            box-shadow: 0px 4px 20px rgba(231, 111, 81, 0.08);
+        }
+        .table-hover-row:hover {
+            background-color: rgba(231, 111, 81, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col antialiased">
+<!-- TopNavBar -->
+<header class="bg-surface border-b border-outline-variant shadow-sm z-40 fixed top-0 left-0 w-full md:left-[280px] md:w-[calc(100%-280px)]">
+<div class="flex justify-between items-center w-full px-gutter max-w-container-max mx-auto h-20">
+<div class="flex items-center gap-md">
+<!-- Mobile Menu Button -->
+<button class="md:hidden p-2 text-on-surface hover:bg-surface-variant rounded-full transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-primary tracking-tight">IPL Match Insights</h1>
+</div>
+<nav class="hidden md:flex items-center h-full gap-lg">
+<a class="text-tertiary font-body-md hover:text-primary-container transition-colors duration-200 h-full flex items-center px-1 border-b-2 border-transparent" href="#">Overview</a>
+<a class="text-tertiary font-body-md hover:text-primary-container transition-colors duration-200 h-full flex items-center px-1 border-b-2 border-transparent" href="#">Toss</a>
+<a class="text-tertiary font-body-md hover:text-primary-container transition-colors duration-200 h-full flex items-center px-1 border-b-2 border-transparent" href="#">Venue</a>
+<a class="text-tertiary font-body-md hover:text-primary-container transition-colors duration-200 h-full flex items-center px-1 border-b-2 border-transparent" href="#">Teams</a>
+<a class="text-primary font-bold border-b-2 border-primary h-full flex items-center px-1" href="#">Players</a>
+<a class="text-tertiary font-body-md hover:text-primary-container transition-colors duration-200 h-full flex items-center px-1 border-b-2 border-transparent" href="#">Insights Lab</a>
+</nav>
+<div class="flex items-center gap-sm">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="bg-[#fff9f0] border border-outline-variant rounded-lg pl-3 pr-10 py-2 focus:border-primary focus:ring-1 focus:ring-primary transition-colors w-48 text-body-sm font-body-sm" placeholder="Search..." type="text"/>
+</div>
+<button class="p-2 text-on-surface hover:bg-surface-variant rounded-full transition-colors scale-95 active:scale-90">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface hover:bg-surface-variant rounded-full transition-colors scale-95 active:scale-90">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<img alt="Analyst Profile" class="w-10 h-10 rounded-full object-cover border-2 border-surface ml-2" data-alt="A professional headshot of a cricket data analyst wearing a sleek, modern headset. The background is a subtle blurred stadium. High quality, crisp lighting, corporate yet sporty aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRyVsXt0BhaapIT_ggylXlBF0TU4prz9jBf5J5ipoLiOKXlcX0TzhALD6yMb4oNCgS0FvERTSdZPsBPZAwHv_Li2lc7RTPQO8Roo_ZnK2H5bp4JrQqM_wLwvarpv2ZNZfkdBAXVR_bJLMG6oSmlean4FWy4QF2bw0Yt8qhsGGKzvG-Znybk65oIv-79C3pLm0wf1yS2lmt2xB_57JwFwE5vyu-epSzixdH-9hS99bjRy9hVx_tqIEwnA"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col bg-surface-container-low border-r border-outline-variant shadow-md fixed left-0 top-0 h-screen w-sidebar-width z-50">
+<div class="p-md border-b border-outline-variant flex items-center gap-sm">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-on-primary-container font-bold text-lg">IPL</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary leading-tight">Match Center</h2>
+<p class="text-label-sm font-label-sm text-on-surface-variant">T20 Data Engine</p>
+</div>
+</div>
+<nav class="flex-1 py-md flex flex-col gap-xs overflow-y-auto">
+<a class="flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">analytics</span>
+<span class="font-body-sm text-body-sm">Live Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">history</span>
+<span class="font-body-sm text-body-sm">Historical Data</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 mx-2 rounded-lg bg-primary-container text-on-primary-container translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined text-on-primary-container">person</span>
+<span class="font-body-sm text-body-sm font-semibold">Player Metrics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">groups</span>
+<span class="font-body-sm text-body-sm">Team Strategy</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">stadium</span>
+<span class="font-body-sm text-body-sm">Venue Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">settings</span>
+<span class="font-body-sm text-body-sm">Settings</span>
+</a>
+</nav>
+<div class="p-md border-t border-outline-variant mt-auto">
+<button class="w-full bg-primary text-on-primary py-2 px-4 rounded-lg font-body-sm text-body-sm font-medium hover:bg-surface-tint transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">download</span>
+                Export Report
+            </button>
+<div class="flex gap-4 mt-4 px-2">
+<a class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1" href="#" title="Support">
+<span class="material-symbols-outlined text-lg">help</span>
+</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1" href="#" title="Documentation">
+<span class="material-symbols-outlined text-lg">description</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 pt-24 md:pl-sidebar-width px-4 md:px-gutter pb-lg max-w-container-max mx-auto w-full">
+<!-- Player Leaders Card -->
+<section class="bg-surface-container-lowest rounded-xl custom-shadow p-6 md:p-8 border border-surface-variant">
+<header class="mb-8">
+<h2 class="text-headline-md font-headline-md text-on-surface">Player leaders</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Compare individual performances and view top metrics.</p>
+</header>
+<!-- Section A: Player comparison -->
+<div class="mb-12">
+<h3 class="text-body-lg font-body-lg font-semibold text-on-surface mb-6 border-b border-outline-variant pb-2">Player comparison</h3>
+<!-- Dropdowns Row 1 -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md mb-6">
+<div class="flex flex-col gap-2">
+<label class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Comparison season</label>
+<select class="bg-[#fff9f0] border border-outline-variant rounded-lg px-3 py-2 text-body-sm font-body-sm focus:border-primary focus:ring-1 focus:ring-primary w-full text-on-surface">
+<option>2024</option>
+<option>2023</option>
+<option>All Time</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Comparison team</label>
+<select class="bg-[#fff9f0] border border-outline-variant rounded-lg px-3 py-2 text-body-sm font-body-sm focus:border-primary focus:ring-1 focus:ring-primary w-full text-on-surface">
+<option>All Teams</option>
+<option>CSK</option>
+<option>MI</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Comparison role</label>
+<select class="bg-[#fff9f0] border border-outline-variant rounded-lg px-3 py-2 text-body-sm font-body-sm focus:border-primary focus:ring-1 focus:ring-primary w-full text-on-surface">
+<option>All-rounder</option>
+<option>Batsman</option>
+<option>Bowler</option>
+</select>
+</div>
+</div>
+<!-- Dropdowns Row 2 -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md mb-8 p-4 bg-surface-container-low rounded-lg border border-surface-variant">
+<div class="flex flex-col gap-2">
+<label class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary-container"></span> Player 1
+                        </label>
+<select class="bg-[#fff9f0] border border-outline-variant rounded-lg px-3 py-2 text-body-sm font-body-sm focus:border-primary focus:ring-1 focus:ring-primary w-full font-medium text-on-surface">
+<option>Virat Kohli</option>
+<option>MS Dhoni</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary-container"></span> Player 2
+                        </label>
+<select class="bg-[#fff9f0] border border-outline-variant rounded-lg px-3 py-2 text-body-sm font-body-sm focus:border-primary focus:ring-1 focus:ring-primary w-full font-medium text-on-surface">
+<option>Rohit Sharma</option>
+<option>Jasprit Bumrah</option>
+</select>
+</div>
+</div>
+<!-- Grouped Bar Chart Mockup -->
+<div class="mb-8">
+<h4 class="text-label-md font-label-md text-on-surface mb-4 text-center">Player comparison</h4>
+<div class="w-full h-64 border-b border-l border-outline-variant flex items-end justify-around px-4 relative pt-8">
+<!-- Y-axis markers -->
+<div class="absolute left-[-2rem] bottom-0 text-label-sm text-tertiary">0</div>
+<div class="absolute left-[-2rem] top-1/2 text-label-sm text-tertiary">50</div>
+<div class="absolute left-[-2.5rem] top-0 text-label-sm text-tertiary">100</div>
+<!-- Metric 1: Batting runs (Scaled visually for chart) -->
+<div class="flex flex-col items-center gap-2 group">
+<div class="flex items-end gap-1 h-48">
+<div class="w-6 md:w-8 bg-primary-container rounded-t-sm h-full relative group-hover:opacity-80 transition-opacity" title="Virat Kohli: 741">
+<span class="absolute -top-5 left-1/2 -translate-x-1/2 text-xs font-bold text-on-surface">741</span>
+</div>
+<div class="w-6 md:w-8 bg-secondary-container rounded-t-sm h-[80%] relative group-hover:opacity-80 transition-opacity" title="Rohit Sharma: 602">
+<span class="absolute -top-5 left-1/2 -translate-x-1/2 text-xs font-bold text-on-surface">602</span>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant mt-2 rotate-45 md:rotate-0 origin-left whitespace-nowrap">Runs</span>
+</div>
+<!-- Metric 2: Strike rate -->
+<div class="flex flex-col items-center gap-2 group">
+<div class="flex items-end gap-1 h-48">
+<div class="w-6 md:w-8 bg-primary-container rounded-t-sm h-[60%] relative group-hover:opacity-80 transition-opacity">
+<span class="absolute -top-5 left-1/2 -translate-x-1/2 text-xs font-bold text-on-surface">154.6</span>
+</div>
+<div class="w-6 md:w-8 bg-secondary-container rounded-t-sm h-[55%] relative group-hover:opacity-80 transition-opacity">
+<span class="absolute -top-5 left-1/2 -translate-x-1/2 text-xs font-bold text-on-surface">148.2</span>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant mt-2 rotate-45 md:rotate-0 origin-left whitespace-nowrap">SR</span>
+</div>
+<!-- Metric 3: Batting average -->
+<div class="flex flex-col items-center gap-2 group">
+<div class="flex items-end gap-1 h-48">
+<div class="w-6 md:w-8 bg-primary-container rounded-t-sm h-[40%] relative group-hover:opacity-80 transition-opacity">
+<span class="absolute -top-5 left-1/2 -translate-x-1/2 text-xs font-bold text-on-surface">61.7</span>
+</div>
+<div class="w-6 md:w-8 bg-secondary-container rounded-t-sm h-[35%] relative group-hover:opacity-80 transition-opacity">
+<span class="absolute -top-5 left-1/2 -translate-x-1/2 text-xs font-bold text-on-surface">43.0</span>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant mt-2 rotate-45 md:rotate-0 origin-left whitespace-nowrap">Avg</span>
+</div>
+<!-- Metric 4: Wickets -->
+<div class="flex flex-col items-center gap-2 group">
+<div class="flex items-end gap-1 h-48">
+<div class="w-6 md:w-8 bg-primary-container rounded-t-sm h-[5%] relative group-hover:opacity-80 transition-opacity">
+<span class="absolute -top-5 left-1/2 -translate-x-1/2 text-xs font-bold text-on-surface">0</span>
+</div>
+<div class="w-6 md:w-8 bg-secondary-container rounded-t-sm h-[5%] relative group-hover:opacity-80 transition-opacity">
+<span class="absolute -top-5 left-1/2 -translate-x-1/2 text-xs font-bold text-on-surface">0</span>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant mt-2 rotate-45 md:rotate-0 origin-left whitespace-nowrap">Wkts</span>
+</div>
+<!-- Metric 5: Economy -->
+<div class="flex flex-col items-center gap-2 group">
+<div class="flex items-end gap-1 h-48">
+<div class="w-6 md:w-8 bg-primary-container rounded-t-sm h-[10%] relative group-hover:opacity-80 transition-opacity">
+<span class="absolute -top-5 left-1/2 -translate-x-1/2 text-xs font-bold text-on-surface">0.0</span>
+</div>
+<div class="w-6 md:w-8 bg-secondary-container rounded-t-sm h-[10%] relative group-hover:opacity-80 transition-opacity">
+<span class="absolute -top-5 left-1/2 -translate-x-1/2 text-xs font-bold text-on-surface">0.0</span>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant mt-2 rotate-45 md:rotate-0 origin-left whitespace-nowrap">Econ</span>
+</div>
+<!-- Metric 6: 4s -->
+<div class="flex flex-col items-center gap-2 group">
+<div class="flex items-end gap-1 h-48">
+<div class="w-6 md:w-8 bg-primary-container rounded-t-sm h-[45%] relative group-hover:opacity-80 transition-opacity">
+<span class="absolute -top-5 left-1/2 -translate-x-1/2 text-xs font-bold text-on-surface">64</span>
+</div>
+<div class="w-6 md:w-8 bg-secondary-container rounded-t-sm h-[50%] relative group-hover:opacity-80 transition-opacity">
+<span class="absolute -top-5 left-1/2 -translate-x-1/2 text-xs font-bold text-on-surface">71</span>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant mt-2 rotate-45 md:rotate-0 origin-left whitespace-nowrap">4s</span>
+</div>
+<!-- Metric 7: 6s -->
+<div class="flex flex-col items-center gap-2 group">
+<div class="flex items-end gap-1 h-48">
+<div class="w-6 md:w-8 bg-primary-container rounded-t-sm h-[35%] relative group-hover:opacity-80 transition-opacity">
+<span class="absolute -top-5 left-1/2 -translate-x-1/2 text-xs font-bold text-on-surface">38</span>
+</div>
+<div class="w-6 md:w-8 bg-secondary-container rounded-t-sm h-[25%] relative group-hover:opacity-80 transition-opacity">
+<span class="absolute -top-5 left-1/2 -translate-x-1/2 text-xs font-bold text-on-surface">24</span>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant mt-2 rotate-45 md:rotate-0 origin-left whitespace-nowrap">6s</span>
+</div>
+</div>
+</div>
+<!-- Comparison Data Table -->
+<div class="overflow-x-auto mb-10 border border-outline-variant rounded-lg">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-variant text-tertiary font-label-sm text-label-sm uppercase">
+<tr>
+<th class="p-4 font-semibold border-b border-outline-variant">Metric</th>
+<th class="p-4 font-semibold border-b border-outline-variant text-right">
+<div class="flex items-center justify-end gap-2">
+<span class="w-3 h-3 rounded-full bg-primary-container"></span> Virat Kohli
+                                    </div>
+</th>
+<th class="p-4 font-semibold border-b border-outline-variant text-right">
+<div class="flex items-center justify-end gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary-container"></span> Rohit Sharma
+                                    </div>
+</th>
+</tr>
+</thead>
+<tbody class="text-body-sm font-body-sm divide-y divide-outline-variant">
+<tr class="table-hover-row transition-colors">
+<td class="p-4 font-medium text-on-surface">Batting runs</td>
+<td class="p-4 text-right text-on-surface font-bold">741</td>
+<td class="p-4 text-right text-on-surface-variant">602</td>
+</tr>
+<tr class="table-hover-row transition-colors">
+<td class="p-4 font-medium text-on-surface">Strike rate</td>
+<td class="p-4 text-right text-on-surface font-bold">154.69</td>
+<td class="p-4 text-right text-on-surface-variant">148.27</td>
+</tr>
+<tr class="table-hover-row transition-colors">
+<td class="p-4 font-medium text-on-surface">Batting average</td>
+<td class="p-4 text-right text-on-surface font-bold">61.75</td>
+<td class="p-4 text-right text-on-surface-variant">43.00</td>
+</tr>
+<tr class="table-hover-row transition-colors">
+<td class="p-4 font-medium text-on-surface">Wickets</td>
+<td class="p-4 text-right text-on-surface-variant">0</td>
+<td class="p-4 text-right text-on-surface-variant">0</td>
+</tr>
+<tr class="table-hover-row transition-colors">
+<td class="p-4 font-medium text-on-surface">Economy</td>
+<td class="p-4 text-right text-on-surface-variant">-</td>
+<td class="p-4 text-right text-on-surface-variant">-</td>
+</tr>
+<tr class="table-hover-row transition-colors">
+<td class="p-4 font-medium text-on-surface">4s</td>
+<td class="p-4 text-right text-on-surface-variant">64</td>
+<td class="p-4 text-right text-on-surface font-bold">71</td>
+</tr>
+<tr class="table-hover-row transition-colors">
+<td class="p-4 font-medium text-on-surface">6s</td>
+<td class="p-4 text-right text-on-surface font-bold">38</td>
+<td class="p-4 text-right text-on-surface-variant">24</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Player Profile Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Player 1 Card -->
+<div class="bg-surface border border-outline-variant rounded-xl p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start group hover:custom-shadow transition-shadow">
+<div class="w-[180px] h-[180px] shrink-0 rounded-xl overflow-hidden bg-surface-variant relative border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A highly detailed portrait photograph of a confident cricket player standing in front of a subtly blurred stadium background. Warm natural lighting highlights the face, modern corporate sports photography aesthetic, light mode palette with deep contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCh23ArXCLygujX71G4BKzqcTnyD0aXzJ_COYkueIeWqBC_dzpO6yqG4OgenrVJdjoqc6drzHFz8z4LoETvWkw_pVY4U4skRTJl49tJGhnr1MKBpSqz9nuynoXXvcqBJq1XtJLxvTOxXk8ygFsj_jJm3LPSATOBp_PUkfUFvm5U1le75mcuwTb7Bv-YO7yVF2DPKbtopAWxHec6NLZXKtCARkVXdVHA7umtdKkieOTnxN3wZPC7928qWg"/>
+</div>
+<div class="flex flex-col gap-3 w-full">
+<h4 class="text-headline-md font-headline-md text-primary m-0">Virat Kohli</h4>
+<div class="space-y-2 mt-2">
+<div class="flex justify-between border-b border-surface-variant pb-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Batting style</span>
+<span class="text-body-sm font-body-sm font-medium">Right-hand bat</span>
+</div>
+<div class="flex justify-between border-b border-surface-variant pb-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Bowling style</span>
+<span class="text-body-sm font-body-sm font-medium">Right-arm medium</span>
+</div>
+<div class="flex justify-between border-b border-surface-variant pb-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Playing role</span>
+<span class="text-body-sm font-body-sm font-medium">Top-order batter</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Player 2 Card -->
+<div class="bg-surface border border-outline-variant rounded-xl p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start group hover:custom-shadow transition-shadow">
+<div class="w-[180px] h-[180px] shrink-0 rounded-xl overflow-hidden bg-surface-variant relative border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A highly detailed portrait photograph of a focused cricket player looking slightly off-camera, set against a bright, airy cricket field background out of focus. Studio-quality sports lighting, crisp details, professional aesthetic matching a modern dashboard UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQgmI7xHvv_gfr2ay8UorjNBsfmb-X7FgDotoFRQRHcAucYpNl_NArWfR0pMHoh995n-iMOulJr0lViPvqxIPGtnWY-Kmz5xjxFU13IWu5EZv4CRnoASMr1KnB4GOnkY5J3radabSxcY09Kqg596x0QsGRcMmL-1YHIvRbPFg_xgsIXJYc24Wat8msOpcyy8Iz_CJX0fM6hzbOT5rf_5SiGbkmOF-WnB-9C0tcjFYb8ymRcCCChxnEqQ"/>
+</div>
+<div class="flex flex-col gap-3 w-full">
+<h4 class="text-headline-md font-headline-md text-primary m-0">Rohit Sharma</h4>
+<div class="space-y-2 mt-2">
+<div class="flex justify-between border-b border-surface-variant pb-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Batting style</span>
+<span class="text-body-sm font-body-sm font-medium">Right-hand bat</span>
+</div>
+<div class="flex justify-between border-b border-surface-variant pb-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Bowling style</span>
+<span class="text-body-sm font-body-sm font-medium">Right-arm offbreak</span>
+</div>
+<div class="flex justify-between border-b border-surface-variant pb-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Playing role</span>
+<span class="text-body-sm font-body-sm font-medium">Opening batter</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Section B: Leaderboards -->
+<div>
+<h3 class="text-body-lg font-body-lg font-semibold text-on-surface mb-6 border-b border-outline-variant pb-2">Leaderboards</h3>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-lg">
+<!-- Left Column: Batting Leaders -->
+<div>
+<h4 class="text-body-md font-body-md font-semibold text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">sports_cricket</span>
+                            Batting leaders
+                        </h4>
+<div class="overflow-x-auto border border-outline-variant rounded-lg bg-surface">
+<table class="w-full text-left text-body-sm font-body-sm border-collapse">
+<thead class="bg-surface-variant text-tertiary font-label-sm text-label-sm">
+<tr>
+<th class="p-3 font-semibold border-b border-outline-variant">Batter</th>
+<th class="p-3 font-semibold border-b border-outline-variant text-right">Runs</th>
+<th class="p-3 font-semibold border-b border-outline-variant text-right">Balls</th>
+<th class="p-3 font-semibold border-b border-outline-variant text-right">SR</th>
+<th class="p-3 font-semibold border-b border-outline-variant text-right">4s</th>
+<th class="p-3 font-semibold border-b border-outline-variant text-right">6s</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="table-hover-row">
+<td class="p-3 font-medium">V Kohli</td>
+<td class="p-3 text-right font-bold text-primary">741</td>
+<td class="p-3 text-right text-on-surface-variant">479</td>
+<td class="p-3 text-right">154.69</td>
+<td class="p-3 text-right">64</td>
+<td class="p-3 text-right">38</td>
+</tr>
+<tr class="table-hover-row">
+<td class="p-3 font-medium">R Gaikwad</td>
+<td class="p-3 text-right font-bold text-primary">583</td>
+<td class="p-3 text-right text-on-surface-variant">413</td>
+<td class="p-3 text-right">141.16</td>
+<td class="p-3 text-right">58</td>
+<td class="p-3 text-right">18</td>
+</tr>
+<tr class="table-hover-row">
+<td class="p-3 font-medium">R Parag</td>
+<td class="p-3 text-right font-bold text-primary">573</td>
+<td class="p-3 text-right text-on-surface-variant">384</td>
+<td class="p-3 text-right">149.21</td>
+<td class="p-3 text-right">40</td>
+<td class="p-3 text-right">33</td>
+</tr>
+<tr class="table-hover-row">
+<td class="p-3 font-medium">T Head</td>
+<td class="p-3 text-right font-bold text-primary">567</td>
+<td class="p-3 text-right text-on-surface-variant">296</td>
+<td class="p-3 text-right">191.55</td>
+<td class="p-3 text-right">64</td>
+<td class="p-3 text-right">32</td>
+</tr>
+<tr class="table-hover-row">
+<td class="p-3 font-medium">S Samson</td>
+<td class="p-3 text-right font-bold text-primary">531</td>
+<td class="p-3 text-right text-on-surface-variant">346</td>
+<td class="p-3 text-right">153.46</td>
+<td class="p-3 text-right">48</td>
+<td class="p-3 text-right">24</td>
+</tr>
+<tr class="table-hover-row">
+<td class="p-3 font-medium">S Narine</td>
+<td class="p-3 text-right font-bold text-primary">488</td>
+<td class="p-3 text-right text-on-surface-variant">272</td>
+<td class="p-3 text-right">179.41</td>
+<td class="p-3 text-right">50</td>
+<td class="p-3 text-right">33</td>
+</tr>
+<tr class="table-hover-row">
+<td class="p-3 font-medium">KL Rahul</td>
+<td class="p-3 text-right font-bold text-primary">488</td>
+<td class="p-3 text-right text-on-surface-variant">365</td>
+<td class="p-3 text-right">133.69</td>
+<td class="p-3 text-right">45</td>
+<td class="p-3 text-right">17</td>
+</tr>
+<tr class="table-hover-row">
+<td class="p-3 font-medium">N Pooran</td>
+<td class="p-3 text-right font-bold text-primary">487</td>
+<td class="p-3 text-right text-on-surface-variant">273</td>
+<td class="p-3 text-right">178.38</td>
+<td class="p-3 text-right">34</td>
+<td class="p-3 text-right">35</td>
+</tr>
+<tr class="table-hover-row">
+<td class="p-3 font-medium">S Sudharsan</td>
+<td class="p-3 text-right font-bold text-primary">481</td>
+<td class="p-3 text-right text-on-surface-variant">341</td>
+<td class="p-3 text-right">141.05</td>
+<td class="p-3 text-right">46</td>
+<td class="p-3 text-right">15</td>
+</tr>
+<tr class="table-hover-row">
+<td class="p-3 font-medium">A Sharma</td>
+<td class="p-3 text-right font-bold text-primary">477</td>
+<td class="p-3 text-right text-on-surface-variant">232</td>
+<td class="p-3 text-right">205.60</td>
+<td class="p-3 text-right">35</td>
+<td class="p-3 text-right">41</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Right Column: Bowling Leaders -->
+<div>
+<h4 class="text-body-md font-body-md font-semibold text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">sports_baseball</span>
+                            Bowling leaders
+                        </h4>
+<div class="overflow-x-auto border border-outline-variant rounded-lg bg-surface">
+<table class="w-full text-left text-body-sm font-body-sm border-collapse">
+<thead class="bg-surface-variant text-tertiary font-label-sm text-label-sm">
+<tr>
+<th class="p-3 font-semibold border-b border-outline-variant">Bowler</th>
+<th class="p-3 font-semibold border-b border-outline-variant text-right">Wickets</th>
+<th class="p-3 font-semibold border-b border-outline-variant text-right">Balls</th>
+<th class="p-3 font-semibold border-b border-outline-variant text-right">Runs</th>
+<th class="p-3 font-semibold border-b border-outline-variant text-right">Econ</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="table-hover-row">
+<td class="p-3 font-medium">H Patel</td>
+<td class="p-3 text-right font-bold text-primary">24</td>
+<td class="p-3 text-right text-on-surface-variant">288</td>
+<td class="p-3 text-right">467</td>
+<td class="p-3 text-right">9.72</td>
+</tr>
+<tr class="table-hover-row">
+<td class="p-3 font-medium">V Chakravarthy</td>
+<td class="p-3 text-right font-bold text-primary">21</td>
+<td class="p-3 text-right text-on-surface-variant">300</td>
+<td class="p-3 text-right">402</td>
+<td class="p-3 text-right">8.04</td>
+</tr>
+<tr class="table-hover-row">
+<td class="p-3 font-medium">J Bumrah</td>
+<td class="p-3 text-right font-bold text-primary">20</td>
+<td class="p-3 text-right text-on-surface-variant">311</td>
+<td class="p-3 text-right">336</td>
+<td class="p-3 text-right">6.48</td>
+</tr>
+<tr class="table-hover-row">
+<td class="p-3 font-medium">A Singh</td>
+<td class="p-3 text-right font-bold text-primary">19</td>
+<td class="p-3 text-right text-on-surface-variant">302</td>
+<td class="p-3 text-right">504</td>
+<td class="p-3 text-right">10.01</td>
+</tr>
+<tr class="table-hover-row">
+<td class="p-3 font-medium">T Natarajan</td>
+<td class="p-3 text-right font-bold text-primary">19</td>
+<td class="p-3 text-right text-on-surface-variant">306</td>
+<td class="p-3 text-right">462</td>
+<td class="p-3 text-right">9.05</td>
+</tr>
+<tr class="table-hover-row">
+<td class="p-3 font-medium">P Chawla</td>
+<td class="p-3 text-right font-bold text-primary">18</td>
+<td class="p-3 text-right text-on-surface-variant">252</td>
+<td class="p-3 text-right">352</td>
+<td class="p-3 text-right">8.38</td>
+</tr>
+<tr class="table-hover-row">
+<td class="p-3 font-medium">M Pathirana</td>
+<td class="p-3 text-right font-bold text-primary">17</td>
+<td class="p-3 text-right text-on-surface-variant">216</td>
+<td class="p-3 text-right">274</td>
+<td class="p-3 text-right">7.61</td>
+</tr>
+<tr class="table-hover-row">
+<td class="p-3 font-medium">S Narine</td>
+<td class="p-3 text-right font-bold text-primary">17</td>
+<td class="p-3 text-right text-on-surface-variant">318</td>
+<td class="p-3 text-right">366</td>
+<td class="p-3 text-right">6.90</td>
+</tr>
+<tr class="table-hover-row">
+<td class="p-3 font-medium">Y Chahal</td>
+<td class="p-3 text-right font-bold text-primary">16</td>
+<td class="p-3 text-right text-on-surface-variant">270</td>
+<td class="p-3 text-right">424</td>
+<td class="p-3 text-right">9.42</td>
+</tr>
+<tr class="table-hover-row">
+<td class="p-3 font-medium">Avesh Khan</td>
+<td class="p-3 text-right font-bold text-primary">15</td>
+<td class="p-3 text-right text-on-surface-variant">311</td>
+<td class="p-3 text-right">501</td>
+<td class="p-3 text-right">9.66</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>

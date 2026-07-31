@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IPL Insights - Overview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&amp;family=Sora:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#e76f51",
+                        "on-secondary-container": "#007166",
+                        "primary-fixed-dim": "#ffb4a2",
+                        "tertiary-fixed": "#ffdf96",
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#8a716c",
+                        "surface-container-highest": "#c6e8f8",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#8cf5e4",
+                        "surface-container": "#d8f2ff",
+                        "surface": "#f3faff",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#dec0b9",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#001f29",
+                        "surface-bright": "#f3faff",
+                        "on-secondary-fixed-variant": "#005048",
+                        "tertiary": "#765a05",
+                        "secondary-fixed-dim": "#6fd8c8",
+                        "inverse-on-surface": "#dff4ff",
+                        "tertiary-fixed-dim": "#e7c268",
+                        "primary": "#a33d23",
+                        "inverse-surface": "#123441",
+                        "inverse-primary": "#ffb4a2",
+                        "on-tertiary-fixed-variant": "#5a4400",
+                        "surface-container-low": "#e6f6ff",
+                        "primary-fixed": "#ffdad2",
+                        "tertiary-container": "#af8f3b",
+                        "surface-container-high": "#ccedfe",
+                        "background": "#f3faff",
+                        "surface-variant": "#c6e8f8",
+                        "surface-tint": "#a33d23",
+                        "on-tertiary-fixed": "#251a00",
+                        "on-tertiary-container": "#392a00",
+                        "on-secondary-fixed": "#00201c",
+                        "on-primary-fixed": "#3c0700",
+                        "secondary": "#006a60",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#8cf5e4",
+                        "surface-dim": "#bedfef",
+                        "on-surface": "#001f29",
+                        "on-primary-fixed-variant": "#83260e",
+                        "on-surface-variant": "#57423d",
+                        "on-primary-container": "#590f00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "container-max-width": "1440px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Sora"],
+                        "label-sm": ["Hanken Grotesk"],
+                        "headline-lg": ["Sora"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Sora"],
+                        "label-md": ["Hanken Grotesk"],
+                        "headline-md": ["Sora"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    },
+                    boxShadow: {
+                        'ambient': '0 10px 25px -5px rgba(231, 111, 81, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.05)',
+                        'ambient-hover': '0 15px 30px -5px rgba(231, 111, 81, 0.12), 0 12px 15px -6px rgba(0, 0, 0, 0.08)'
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { background-image: linear-gradient(to bottom right, #f3faff, #fffaf6); min-height: 100vh; }
+        .card-border { border: 1px solid #F1F1F1; }
+        .chart-container { position: relative; height: 100%; width: 100%; }
+        
+        /* Simple bar chart CSS for illustration */
+        .bar-vertical { background-color: #e76f51; border-radius: 4px 4px 0 0; transition: height 1s ease-out; }
+        .bar-horizontal { background-color: #e76f51; border-radius: 0 4px 4px 0; transition: width 1s ease-out; }
+        
+        /* Line chart dots */
+        .dot { width: 8px; height: 8px; background-color: #e76f51; border-radius: 50%; position: absolute; transform: translate(-50%, -50%); border: 2px solid #fff; }
+        
+        /* Grid lines */
+        .grid-line-y { border-top: 1px dashed #e2e8f0; position: absolute; width: 100%; left: 0; }
+        .grid-line-x { border-left: 1px dashed #e2e8f0; position: absolute; height: 100%; bottom: 0; }
+    </style>
+</head>
+<body class="text-on-background font-body-md antialiased overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="bg-surface shadow-sm docked full-width top-0 z-50">
+<div class="flex justify-between items-center px-margin-desktop py-4 w-full max-w-container-max-width mx-auto">
+<div class="flex items-center gap-8">
+<div class="font-headline-xl text-headline-xl font-bold text-primary tracking-tight">IPL Insights</div>
+<div class="hidden md:flex gap-6 items-center">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md" href="#">Dashboard</a>
+<a class="text-on-surface-variant pb-1 hover:text-primary-container transition-colors duration-200 font-label-md text-label-md" href="#">Teams</a>
+<a class="text-on-surface-variant pb-1 hover:text-primary-container transition-colors duration-200 font-label-md text-label-md" href="#">Players</a>
+<a class="text-on-surface-variant pb-1 hover:text-primary-container transition-colors duration-200 font-label-md text-label-md" href="#">Venues</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="pl-10 pr-4 py-2 rounded-md border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-primary-container focus:border-transparent outline-none text-label-md font-label-md shadow-inner" placeholder="Search..." type="text"/>
+</div>
+<button class="text-on-surface-variant hover:text-primary-container transition-colors duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary-container transition-colors duration-200">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<img class="w-10 h-10 rounded-full object-cover border-2 border-primary-container" data-alt="A professional headshot of a user in a clean, modern corporate setting, soft lighting, vibrant contrasting colors, high resolution, minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArkxS8p6-xHWceblyolgPHFbJM8tnbqAEr9TT-wV12eR58jNPr4dV430USfYb4LJGblzincG3j3s2BJ_y3N_vpn-2P4vslqq8_RavdqOXvYR2l4EfdZ1QzsJUTD8ihTAh4sUFAFidf-7haOfGt8kE-_Mu0UJwMbKQbLjdonEeG06E6lFeEpIH8A9M9ykPcnZnmurmufPxX8bk4HHUkkSFdFdgBZmw0OnZvFIeUfHNvoUcEeyXorUTpvQ"/>
+</div>
+</div>
+</nav>
+<div class="flex w-full max-w-container-max-width mx-auto pt-6 px-margin-desktop pb-12 gap-gutter">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col gap-2 p-4 w-64 shrink-0 bg-surface-container-low border-r border-outline-variant rounded-xl h-[calc(100vh-100px)] sticky top-24">
+<div class="mb-6 flex items-center gap-3 px-2">
+<div class="w-12 h-12 rounded-lg bg-primary-container/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary-container text-2xl" style="font-variation-settings: 'FILL' 1;">sports_cricket</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary leading-tight">Season 2024</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-80">IPL Performance Data</p>
+</div>
+</div>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 transition-colors" href="#">
+<span class="material-symbols-outlined">sensors</span>
+<span class="font-label-md text-label-md">Live Match</span>
+</a>
+<a class="flex items-center gap-3 bg-primary-container text-on-primary-container rounded-lg px-4 py-3 shadow-sm hover:shadow-md transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-label-md text-label-md">Overview</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 transition-colors" href="#">
+<span class="material-symbols-outlined">compare_arrows</span>
+<span class="font-label-md text-label-md">Comparison</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 transition-colors" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-md text-label-md">History</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 transition-colors" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="font-label-md text-label-md">Draft</span>
+</a>
+<div class="mt-auto pt-4 border-t border-outline-variant/30">
+<button class="w-full py-3 bg-surface-container-lowest border border-primary-container text-primary-container font-label-md text-label-md font-bold rounded-lg hover:bg-primary-container hover:text-white transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                    Compare Teams
+                </button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 min-w-0 flex flex-col gap-gutter">
+<!-- Context Header -->
+<div class="flex justify-between items-end mb-2">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-background">Analytics Overview</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Comprehensive match outcome data across seasons.</p>
+</div>
+<div class="flex gap-3">
+<select class="bg-surface-container-lowest border border-outline-variant rounded-md px-3 py-1.5 text-label-md font-label-md text-on-background shadow-sm focus:ring-primary-container focus:border-primary-container outline-none">
+<option>All Seasons</option>
+<option>2024</option>
+<option>2023</option>
+</select>
+</div>
+</div>
+<!-- Dashboard Container -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-ambient hover:shadow-ambient-hover transition-shadow duration-300 card-border flex flex-col gap-8">
+<h2 class="font-headline-md text-headline-md text-on-background">Match outcome snapshot</h2>
+<!-- Top Chart: Match Result Types -->
+<div class="flex flex-col gap-4">
+<h3 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Match Result Types</h3>
+<div class="h-64 w-full relative pt-4 pb-8 px-4">
+<!-- Y-axis grid -->
+<div class="grid-line-y top-[20%]"></div>
+<div class="grid-line-y top-[40%]"></div>
+<div class="grid-line-y top-[60%]"></div>
+<div class="grid-line-y top-[80%]"></div>
+<div class="grid-line-y bottom-8 border-t border-solid border-outline-variant"></div>
+<!-- Y-axis labels -->
+<div class="absolute left-0 top-[15%] -translate-y-1/2 font-label-sm text-label-sm text-on-surface-variant text-right w-8">600</div>
+<div class="absolute left-0 top-[35%] -translate-y-1/2 font-label-sm text-label-sm text-on-surface-variant text-right w-8">450</div>
+<div class="absolute left-0 top-[55%] -translate-y-1/2 font-label-sm text-label-sm text-on-surface-variant text-right w-8">300</div>
+<div class="absolute left-0 top-[75%] -translate-y-1/2 font-label-sm text-label-sm text-on-surface-variant text-right w-8">150</div>
+<div class="absolute left-0 bottom-[32px] -translate-y-1/2 font-label-sm text-label-sm text-on-surface-variant text-right w-8">0</div>
+<!-- Bars -->
+<div class="absolute left-12 right-4 top-0 bottom-8 flex items-end justify-around">
+<!-- Runs -->
+<div class="w-16 flex flex-col items-center group cursor-pointer">
+<span class="font-label-sm text-label-sm text-primary-container mb-1 opacity-0 group-hover:opacity-100 transition-opacity">482</span>
+<div class="w-full bg-[#a33d23] bar-vertical" style="height: 80%;"></div>
+<span class="absolute -bottom-6 font-label-sm text-label-sm text-on-background text-center w-24">Runs</span>
+</div>
+<!-- Wickets -->
+<div class="w-16 flex flex-col items-center group cursor-pointer">
+<span class="font-label-sm text-label-sm text-primary-container mb-1 opacity-0 group-hover:opacity-100 transition-opacity">415</span>
+<div class="w-full bg-[#e76f51] bar-vertical" style="height: 69%;"></div>
+<span class="absolute -bottom-6 font-label-sm text-label-sm text-on-background text-center w-24">Wickets</span>
+</div>
+<!-- Tie -->
+<div class="w-16 flex flex-col items-center group cursor-pointer">
+<span class="font-label-sm text-label-sm text-primary-container mb-1 opacity-0 group-hover:opacity-100 transition-opacity">14</span>
+<div class="w-full bg-[#ffb4a2] bar-vertical" style="height: 5%;"></div>
+<span class="absolute -bottom-6 font-label-sm text-label-sm text-on-background text-center w-24">Tie</span>
+</div>
+<!-- No Result -->
+<div class="w-16 flex flex-col items-center group cursor-pointer">
+<span class="font-label-sm text-label-sm text-primary-container mb-1 opacity-0 group-hover:opacity-100 transition-opacity">9</span>
+<div class="w-full bg-[#ffdad2] bar-vertical" style="height: 3%;"></div>
+<span class="absolute -bottom-6 font-label-sm text-label-sm text-on-background text-center w-24">No Result</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Row: 2 Columns -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Left: Venues Win Rate -->
+<div class="flex flex-col gap-4">
+<h3 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Top Venues by Batting-First Win Rate</h3>
+<div class="flex flex-col gap-3">
+<!-- Venue 1 -->
+<div class="flex items-center gap-3">
+<div class="w-32 font-label-sm text-label-sm text-on-background truncate text-right">MA Chidambaram</div>
+<div class="flex-1 h-6 bg-surface-container rounded-r-md relative flex items-center">
+<div class="h-full bg-[#a33d23] bar-horizontal flex items-center justify-end pr-2" style="width: 58%;">
+<span class="font-label-sm text-label-sm text-white">58%</span>
+</div>
+</div>
+</div>
+<!-- Venue 2 -->
+<div class="flex items-center gap-3">
+<div class="w-32 font-label-sm text-label-sm text-on-background truncate text-right">Wankhede</div>
+<div class="flex-1 h-6 bg-surface-container rounded-r-md relative flex items-center">
+<div class="h-full bg-[#c04b31] bar-horizontal flex items-center justify-end pr-2" style="width: 52%;">
+<span class="font-label-sm text-label-sm text-white">52%</span>
+</div>
+</div>
+</div>
+<!-- Venue 3 -->
+<div class="flex items-center gap-3">
+<div class="w-32 font-label-sm text-label-sm text-on-background truncate text-right">Eden Gardens</div>
+<div class="flex-1 h-6 bg-surface-container rounded-r-md relative flex items-center">
+<div class="h-full bg-[#e76f51] bar-horizontal flex items-center justify-end pr-2" style="width: 48%;">
+<span class="font-label-sm text-label-sm text-white">48%</span>
+</div>
+</div>
+</div>
+<!-- Venue 4 -->
+<div class="flex items-center gap-3">
+<div class="w-32 font-label-sm text-label-sm text-on-background truncate text-right">M. Chinnaswamy</div>
+<div class="flex-1 h-6 bg-surface-container rounded-r-md relative flex items-center">
+<div class="h-full bg-[#f48b71] bar-horizontal flex items-center justify-end pr-2" style="width: 45%;">
+<span class="font-label-sm text-label-sm text-white">45%</span>
+</div>
+</div>
+</div>
+<!-- Venue 5 -->
+<div class="flex items-center gap-3">
+<div class="w-32 font-label-sm text-label-sm text-on-background truncate text-right">Rajiv Gandhi</div>
+<div class="flex-1 h-6 bg-surface-container rounded-r-md relative flex items-center">
+<div class="h-full bg-[#ffb4a2] bar-horizontal flex items-center justify-end pr-2" style="width: 43%;">
+<span class="font-label-sm text-label-sm text-on-primary-fixed-variant">43%</span>
+</div>
+</div>
+</div>
+<!-- Venue 6 -->
+<div class="flex items-center gap-3">
+<div class="w-32 font-label-sm text-label-sm text-on-background truncate text-right">Arun Jaitley</div>
+<div class="flex-1 h-6 bg-surface-container rounded-r-md relative flex items-center">
+<div class="h-full bg-[#ffc5b7] bar-horizontal flex items-center justify-end pr-2" style="width: 40%;">
+<span class="font-label-sm text-label-sm text-on-primary-fixed-variant">40%</span>
+</div>
+</div>
+</div>
+<!-- Venue 7 -->
+<div class="flex items-center gap-3">
+<div class="w-32 font-label-sm text-label-sm text-on-background truncate text-right">Narendra Modi</div>
+<div class="flex-1 h-6 bg-surface-container rounded-r-md relative flex items-center">
+<div class="h-full bg-[#ffdad2] bar-horizontal flex items-center justify-end pr-2" style="width: 38%;">
+<span class="font-label-sm text-label-sm text-on-primary-fixed-variant">38%</span>
+</div>
+</div>
+</div>
+<!-- Venue 8 -->
+<div class="flex items-center gap-3">
+<div class="w-32 font-label-sm text-label-sm text-on-background truncate text-right">Sawai Mansingh</div>
+<div class="flex-1 h-6 bg-surface-container rounded-r-md relative flex items-center">
+<div class="h-full bg-[#ffece8] bar-horizontal flex items-center justify-end pr-2" style="width: 32%;">
+<span class="font-label-sm text-label-sm text-on-primary-fixed-variant">32%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Matches Per Season -->
+<div class="flex flex-col gap-4">
+<h3 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Matches Per Season</h3>
+<div class="flex-1 relative pt-4 pb-8 pl-8 pr-4 min-h-[250px]">
+<!-- Y Grid -->
+<div class="grid-line-y top-[20%]"></div>
+<div class="grid-line-y top-[40%]"></div>
+<div class="grid-line-y top-[60%]"></div>
+<div class="grid-line-y top-[80%]"></div>
+<div class="grid-line-y bottom-8 border-t border-solid border-outline-variant"></div>
+<!-- Y Labels -->
+<div class="absolute left-0 top-[20%] -translate-y-1/2 font-label-sm text-label-sm text-on-surface-variant text-right w-6">75</div>
+<div class="absolute left-0 top-[50%] -translate-y-1/2 font-label-sm text-label-sm text-on-surface-variant text-right w-6">60</div>
+<div class="absolute left-0 bottom-[32px] -translate-y-1/2 font-label-sm text-label-sm text-on-surface-variant text-right w-6">45</div>
+<!-- X Labels -->
+<div class="absolute left-8 bottom-2 font-label-sm text-label-sm text-on-surface-variant">08</div>
+<div class="absolute left-[33%] bottom-2 font-label-sm text-label-sm text-on-surface-variant -translate-x-1/2">13</div>
+<div class="absolute left-[66%] bottom-2 font-label-sm text-label-sm text-on-surface-variant -translate-x-1/2">18</div>
+<div class="absolute right-4 bottom-2 font-label-sm text-label-sm text-on-surface-variant">24</div>
+<!-- SVG Line -->
+<div class="absolute left-8 right-4 top-0 bottom-8">
+<svg class="overflow-visible" height="100%" preserveaspectratio="none" viewbox="0 0 100 100" width="100%">
+<polyline fill="none" points="0,70 10,65 20,60 30,20 40,30 50,40 60,40 70,30 80,40 90,30 100,10" stroke="#e76f51" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline>
+<!-- Dots approximating points -->
+<circle cx="0" cy="70" fill="#e76f51" r="4" stroke="#fff" stroke-width="2"></circle>
+<circle cx="10" cy="65" fill="#e76f51" r="4" stroke="#fff" stroke-width="2"></circle>
+<circle cx="20" cy="60" fill="#e76f51" r="4" stroke="#fff" stroke-width="2"></circle>
+<circle cx="30" cy="20" fill="#e76f51" r="4" stroke="#fff" stroke-width="2"></circle>
+<circle cx="40" cy="30" fill="#e76f51" r="4" stroke="#fff" stroke-width="2"></circle>
+<circle cx="50" cy="40" fill="#e76f51" r="4" stroke="#fff" stroke-width="2"></circle>
+<circle cx="60" cy="40" fill="#e76f51" r="4" stroke="#fff" stroke-width="2"></circle>
+<circle cx="70" cy="30" fill="#e76f51" r="4" stroke="#fff" stroke-width="2"></circle>
+<circle cx="80" cy="40" fill="#e76f51" r="4" stroke="#fff" stroke-width="2"></circle>
+<circle cx="90" cy="30" fill="#e76f51" r="4" stroke="#fff" stroke-width="2"></circle>
+<circle cx="100" cy="10" fill="#e76f51" r="4" stroke="#fff" stroke-width="2"></circle>
+</svg>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

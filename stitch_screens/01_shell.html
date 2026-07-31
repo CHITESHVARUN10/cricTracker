@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IPL Match Insights Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary": "#436370",
+                      "on-primary": "#ffffff",
+                      "on-surface-variant": "#57423d",
+                      "tertiary-container": "#7797a6",
+                      "secondary-container": "#8cf5e4",
+                      "on-tertiary-container": "#0c2f3b",
+                      "on-primary-fixed-variant": "#83260e",
+                      "on-secondary-fixed": "#00201c",
+                      "outline": "#8a716c",
+                      "inverse-on-surface": "#ebf1ff",
+                      "on-tertiary-fixed": "#001f29",
+                      "background": "#f9f9ff",
+                      "secondary-fixed": "#8cf5e4",
+                      "on-background": "#151c27",
+                      "primary-fixed": "#ffdad2",
+                      "on-error-container": "#93000a",
+                      "outline-variant": "#dec0b9",
+                      "surface-tint": "#a33d23",
+                      "error-container": "#ffdad6",
+                      "inverse-surface": "#2a313d",
+                      "primary": "#a33d23",
+                      "on-secondary-container": "#007166",
+                      "tertiary-fixed": "#c6e8f8",
+                      "primary-fixed-dim": "#ffb4a2",
+                      "error": "#ba1a1a",
+                      "surface-dim": "#d3daea",
+                      "surface-container-low": "#f0f3ff",
+                      "inverse-primary": "#ffb4a2",
+                      "surface-container-highest": "#dce2f3",
+                      "on-primary-container": "#590f00",
+                      "on-tertiary-fixed-variant": "#2b4b58",
+                      "on-secondary": "#ffffff",
+                      "secondary-fixed-dim": "#6fd8c8",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-container": "#e76f51",
+                      "on-tertiary": "#ffffff",
+                      "tertiary-fixed-dim": "#abcbdb",
+                      "surface-variant": "#dce2f3",
+                      "secondary": "#006a60",
+                      "surface-container-high": "#e2e8f8",
+                      "on-primary-fixed": "#3c0700",
+                      "surface": "#f9f9ff",
+                      "on-secondary-fixed-variant": "#005048",
+                      "surface-container": "#e7eefe",
+                      "on-error": "#ffffff",
+                      "on-surface": "#151c27",
+                      "surface-bright": "#f9f9ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base": "8px",
+                      "container-max": "1280px",
+                      "md": "24px",
+                      "gutter": "24px",
+                      "xs": "4px",
+                      "lg": "40px",
+                      "xl": "64px",
+                      "sidebar-width": "280px",
+                      "sm": "12px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": [
+                              "Archivo Narrow"
+                      ],
+                      "label-md": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-md": [
+                              "Archivo Narrow"
+                      ],
+                      "headline-lg": [
+                              "Archivo Narrow"
+                      ],
+                      "body-sm": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "display-lg": [
+                              "Archivo Narrow"
+                      ],
+                      "label-sm": [
+                              "JetBrains Mono"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        body {
+            background: radial-gradient(circle, #fff9f0 0%, #ffecdb 100%);
+        }
+        .shadow-soft {
+            box-shadow: 0px 4px 20px rgba(231, 111, 81, 0.08);
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+      </style>
+</head>
+<body class="font-body-md text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface border-b border-outline-variant shadow-sm w-full sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-gutter max-w-container-max mx-auto h-20">
+<div class="flex items-center gap-4">
+<span class="text-headline-lg font-headline-lg text-primary tracking-tight">IPL Match Insights</span>
+</div>
+<!-- Web Navigation -->
+<nav class="hidden md:flex gap-6">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md hover:text-primary-container transition-colors duration-200" href="#">Overview</a>
+<a class="text-tertiary font-body-md font-label-md text-label-md hover:text-primary-container transition-colors duration-200" href="#">Toss</a>
+<a class="text-tertiary font-body-md font-label-md text-label-md hover:text-primary-container transition-colors duration-200" href="#">Venue</a>
+<a class="text-tertiary font-body-md font-label-md text-label-md hover:text-primary-container transition-colors duration-200" href="#">Teams</a>
+<a class="text-tertiary font-body-md font-label-md text-label-md hover:text-primary-container transition-colors duration-200" href="#">Players</a>
+<a class="text-tertiary font-body-md font-label-md text-label-md hover:text-primary-container transition-colors duration-200" href="#">Insights Lab</a>
+<a class="text-tertiary font-body-md font-label-md text-label-md hover:text-primary-container transition-colors duration-200" href="#">Phases</a>
+<a class="text-tertiary font-body-md font-label-md text-label-md hover:text-primary-container transition-colors duration-200" href="#">Matchups</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="text-primary hover:text-primary-container transition-colors duration-200 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-primary hover:text-primary-container transition-colors duration-200 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<img alt="Analyst Profile" class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A small circular avatar placeholder for a user profile in a sports analytics dashboard. The image should be a generic silhouette or subtle abstract pattern in the dashboard's orange and teal color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA_CcEOBdBoHBbI4QfIssTV-XcLtiNGtho8adr9Uzad_UhWXhSNqk2YVtF9hK0pYUuWHllfwfMZAUBUqNcj9P-oicpE1KZlJGyJsYEDjhtPGWxFRKgvi_HT_nNp5aDThr7GCleWwupyPQ2WyrjrZMQSasipKza3sxKmHRL7OMh63SVVftvBQPJqgqugYcDZudZjIyGo66_NEvp-QjJhUARebBO30E44v71EW0lAXwFm6nOk5ptFEuQ6w"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 w-full max-w-container-max mx-auto px-gutter gap-md py-md overflow-hidden">
+<!-- Filter Sidebar -->
+<aside class="hidden xl:flex flex-col w-sidebar-width bg-surface shadow-soft rounded-xl p-md flex-shrink-0 h-[calc(100vh-120px)] sticky top-28 overflow-y-auto">
+<div class="mb-lg">
+<h2 class="font-headline-md text-headline-md text-primary mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined">filter_list</span> Filters
+                </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">The dashboard updates all charts, tables, and player summaries from the selected slice.</p>
+</div>
+<div class="space-y-lg">
+<!-- Season Range -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface">Season Range</label>
+<input class="w-full accent-primary-container" max="2024" min="2008" type="range" value="2024"/>
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>2008</span>
+<span>2024</span>
+</div>
+</div>
+<!-- Venue Dropdown -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface">Venue</label>
+<div class="relative">
+<select class="w-full bg-[#fff9f0] border border-outline-variant rounded-lg p-3 text-on-surface font-body-sm appearance-none focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors">
+<option>All Venues</option>
+<option>Wankhede Stadium</option>
+<option>Eden Gardens</option>
+<option>M. Chinnaswamy Stadium</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">arrow_drop_down</span>
+</div>
+</div>
+<!-- Team Dropdown -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface">Team</label>
+<div class="relative">
+<select class="w-full bg-[#fff9f0] border border-outline-variant rounded-lg p-3 text-on-surface font-body-sm appearance-none focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors">
+<option>All Teams</option>
+<option>Mumbai Indians</option>
+<option>Chennai Super Kings</option>
+<option>Royal Challengers Bangalore</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">arrow_drop_down</span>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-lg">
+<button class="w-full bg-primary-container text-on-primary py-3 rounded-lg font-label-md text-label-md hover:shadow-md transition-shadow">Apply Filters</button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col gap-md overflow-y-auto pb-lg scrollbar-hide">
+<!-- Hero Card -->
+<section class="bg-surface rounded-xl shadow-soft p-lg relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary-container opacity-5 rounded-bl-full pointer-events-none"></div>
+<div class="relative z-10 max-w-3xl">
+<h1 class="font-headline-lg text-headline-lg text-primary mb-4">IPL Match Insights</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Explore venue advantage, toss impact, team performance, and player matchups from the IPL dataset.</p>
+</div>
+</section>
+<!-- KPI Cards -->
+<section class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-sm">
+<!-- KPI 1 -->
+<div class="bg-surface rounded-xl shadow-soft p-md flex flex-col gap-2 hover:-translate-y-1 transition-transform">
+<span class="font-label-sm text-label-sm text-tertiary uppercase">Matches</span>
+<div class="font-display-lg text-display-lg text-primary">950+</div>
+<div class="w-full h-1 bg-surface-variant rounded-full overflow-hidden mt-auto">
+<div class="w-full h-full bg-primary-container"></div>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface rounded-xl shadow-soft p-md flex flex-col gap-2 hover:-translate-y-1 transition-transform">
+<span class="font-label-sm text-label-sm text-tertiary uppercase">Venues</span>
+<div class="font-display-lg text-display-lg text-primary">35+</div>
+<div class="w-full h-1 bg-surface-variant rounded-full overflow-hidden mt-auto">
+<div class="w-full h-full bg-secondary-container"></div>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface rounded-xl shadow-soft p-md flex flex-col gap-2 hover:-translate-y-1 transition-transform">
+<span class="font-label-sm text-label-sm text-tertiary uppercase">Teams</span>
+<div class="font-display-lg text-display-lg text-primary">15</div>
+<div class="w-full h-1 bg-surface-variant rounded-full overflow-hidden mt-auto">
+<div class="w-[75%] h-full bg-tertiary-container"></div>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-surface rounded-xl shadow-soft p-md flex flex-col gap-2 hover:-translate-y-1 transition-transform">
+<span class="font-label-sm text-label-sm text-tertiary uppercase">Batting-first wins</span>
+<div class="font-display-lg text-display-lg text-primary">48%</div>
+<div class="w-full h-1 bg-surface-variant rounded-full overflow-hidden mt-auto">
+<div class="w-[48%] h-full bg-primary-container"></div>
+</div>
+</div>
+<!-- KPI 5 -->
+<div class="bg-surface rounded-xl shadow-soft p-md flex flex-col gap-2 hover:-translate-y-1 transition-transform">
+<span class="font-label-sm text-label-sm text-tertiary uppercase">Avg 1st inns runs</span>
+<div class="font-display-lg text-display-lg text-primary">165</div>
+<div class="w-full h-1 bg-surface-variant rounded-full overflow-hidden mt-auto">
+<div class="w-[60%] h-full bg-secondary-container"></div>
+</div>
+</div>
+</section>
+<!-- Bottom Data Table Expander -->
+<section class="mt-auto pt-lg">
+<details class="bg-surface rounded-xl shadow-soft group">
+<summary class="flex items-center justify-between p-md cursor-pointer list-none font-headline-md text-headline-md text-primary">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined">table_view</span>
+                            Raw data preview / Filtered matches
+                        </span>
+<span class="material-symbols-outlined transition-transform group-open:rotate-180 text-on-surface-variant">expand_more</span>
+</summary>
+<div class="p-md pt-0 border-t border-outline-variant/30 overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[800px]">
+<thead>
+<tr class="bg-surface-variant/50 text-tertiary font-label-md text-label-md">
+<th class="p-3 border-b border-outline-variant font-medium">Date</th>
+<th class="p-3 border-b border-outline-variant font-medium">Team 1</th>
+<th class="p-3 border-b border-outline-variant font-medium">Team 2</th>
+<th class="p-3 border-b border-outline-variant font-medium">Venue</th>
+<th class="p-3 border-b border-outline-variant font-medium">Toss Winner</th>
+<th class="p-3 border-b border-outline-variant font-medium">Decision</th>
+<th class="p-3 border-b border-outline-variant font-medium">Winner</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm text-on-surface">
+<tr class="hover:bg-primary/5 transition-colors border-b border-outline-variant/30">
+<td class="p-3">2024-03-22</td>
+<td class="p-3">CSK</td>
+<td class="p-3">RCB</td>
+<td class="p-3">M. A. Chidambaram Stadium</td>
+<td class="p-3">RCB</td>
+<td class="p-3 text-on-surface-variant">bat</td>
+<td class="p-3 font-medium text-primary">CSK</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors border-b border-outline-variant/30">
+<td class="p-3">2024-03-23</td>
+<td class="p-3">PBKS</td>
+<td class="p-3">DC</td>
+<td class="p-3">Maharaja Yadavindra Singh Stadium</td>
+<td class="p-3">PBKS</td>
+<td class="p-3 text-on-surface-variant">field</td>
+<td class="p-3 font-medium text-primary">PBKS</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors border-b border-outline-variant/30">
+<td class="p-3">2024-03-23</td>
+<td class="p-3">KKR</td>
+<td class="p-3">SRH</td>
+<td class="p-3">Eden Gardens</td>
+<td class="p-3">SRH</td>
+<td class="p-3 text-on-surface-variant">field</td>
+<td class="p-3 font-medium text-primary">KKR</td>
+</tr>
+</tbody>
+</table>
+<div class="mt-4 flex justify-center">
+<button class="text-primary-container font-label-md text-label-md hover:underline flex items-center gap-1">
+                                Load more rows <span class="material-symbols-outlined text-sm">arrow_downward</span>
+</button>
+</div>
+</div>
+</details>
+</section>
+</main>
+</div>
+</body></html>

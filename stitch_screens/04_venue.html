@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IPL Insights Lab - Venue Impact</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#ffb4a2",
+                    "surface-tint": "#a33d23",
+                    "secondary-fixed": "#8cf5e4",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed-variant": "#2b4b58",
+                    "on-surface": "#151c27",
+                    "on-primary-fixed-variant": "#83260e",
+                    "background": "#f9f9ff",
+                    "primary": "#a33d23",
+                    "secondary-fixed-dim": "#6fd8c8",
+                    "on-secondary": "#ffffff",
+                    "tertiary": "#436370",
+                    "surface": "#f9f9ff",
+                    "surface-bright": "#f9f9ff",
+                    "outline-variant": "#dec0b9",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed": "#3c0700",
+                    "surface-container-highest": "#dce2f3",
+                    "on-tertiary-fixed": "#001f29",
+                    "on-secondary-fixed-variant": "#005048",
+                    "on-tertiary-container": "#0c2f3b",
+                    "on-surface-variant": "#57423d",
+                    "tertiary-fixed": "#c6e8f8",
+                    "tertiary-container": "#7797a6",
+                    "secondary-container": "#8cf5e4",
+                    "outline": "#8a716c",
+                    "on-error-container": "#93000a",
+                    "secondary": "#006a60",
+                    "primary-fixed-dim": "#ffb4a2",
+                    "inverse-surface": "#2a313d",
+                    "tertiary-fixed-dim": "#abcbdb",
+                    "error-container": "#ffdad6",
+                    "on-secondary-container": "#007166",
+                    "on-primary-container": "#590f00",
+                    "surface-variant": "#dce2f3",
+                    "surface-container-low": "#f0f3ff",
+                    "primary-container": "#e76f51",
+                    "on-secondary-fixed": "#00201c",
+                    "on-background": "#151c27",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#ebf1ff",
+                    "surface-container": "#e7eefe",
+                    "surface-container-high": "#e2e8f8",
+                    "surface-dim": "#d3daea",
+                    "primary-fixed": "#ffdad2"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "gutter": "24px",
+                    "base": "8px",
+                    "sm": "12px",
+                    "lg": "40px",
+                    "xl": "64px",
+                    "xs": "4px",
+                    "sidebar-width": "280px",
+                    "md": "24px"
+            },
+            "fontFamily": {
+                    "label-md": [
+                            "JetBrains Mono"
+                    ],
+                    "body-sm": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "body-md": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "display-lg": [
+                            "Archivo Narrow"
+                    ],
+                    "body-lg": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-md": [
+                            "Archivo Narrow"
+                    ],
+                    "label-sm": [
+                            "JetBrains Mono"
+                    ],
+                    "headline-lg": [
+                            "Archivo Narrow"
+                    ],
+                    "headline-lg-mobile": [
+                            "Archivo Narrow"
+                    ]
+            },
+            "fontSize": {
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "1",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "body-sm": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.5",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.5",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "1",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        body {
+            background: linear-gradient(135deg, #f9f9ff 0%, #f0f3ff 100%);
+            min-height: 100vh;
+        }
+        .ambient-shadow {
+            box-shadow: 0px 4px 20px rgba(231, 111, 81, 0.08);
+        }
+        .lift-on-hover {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .lift-on-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 8px 24px rgba(231, 111, 81, 0.12);
+        }
+        .table-row-hover:hover {
+            background-color: rgba(231, 111, 81, 0.05);
+        }
+    </style>
+</head>
+<body class="text-on-background font-body-md antialiased overflow-x-hidden flex flex-col md:flex-row h-screen">
+<!-- Sidebar (Desktop) -->
+<aside class="bg-surface-container-low border-r border-outline-variant hidden lg:flex flex-col p-md gap-base border-r border-outline-variant fixed left-0 top-16 h-[calc(100vh-64px)] w-sidebar-width z-40">
+<div class="flex items-center gap-sm mb-lg px-4">
+<img class="w-10 h-10 object-contain rounded-full" data-alt="A highly detailed metallic 3D render of an Indian Premier League cricket shield logo, featuring sharp edges, vibrant orange and navy blue accents, against a clean white light studio background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM-hFxCc7I4l2_7CHntdJ2Lt_LzSj8nYdN7ieJwWsQ1AkrlHpKLRq2tWovf8rqovB_GmwG_QLthylioIxgckrS8JM9t1tXy5P1Jzk8PPNEp61AgHXmkZKqmana7kaqagyDXIQkDC4h5FEYY8a-deLSBoI4L6dN-Zd7bd2izS3Ht56HZOa2M1d-FYdC6rBZVS_TCUJDU0WYv9jkIXsAsKh8flXurBjrw8YuGtPWMsn2lzJFTkqiC4b1NA"/>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary tracking-tight leading-tight">Cricket Analytics</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mt-1">Precision Data Engine</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1 overflow-y-auto pr-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all hover:bg-surface-container-high transition-colors active:translate-x-1 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">dashboard</span>
+<span class="font-label-md text-label-md">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all hover:bg-surface-container-high transition-colors active:translate-x-1 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">analytics</span>
+<span class="font-label-md text-label-md">Toss</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg font-bold hover:bg-surface-container-high transition-colors active:translate-x-1 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span class="font-label-md text-label-md">Venue</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all hover:bg-surface-container-high transition-colors active:translate-x-1 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">groups</span>
+<span class="font-label-md text-label-md">Teams</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all hover:bg-surface-container-high transition-colors active:translate-x-1 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">person</span>
+<span class="font-label-md text-label-md">Players</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all hover:bg-surface-container-high transition-colors active:translate-x-1 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">science</span>
+<span class="font-label-md text-label-md">Insights Lab</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all hover:bg-surface-container-high transition-colors active:translate-x-1 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">query_stats</span>
+<span class="font-label-md text-label-md">Phases</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all hover:bg-surface-container-high transition-colors active:translate-x-1 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">compare_arrows</span>
+<span class="font-label-md text-label-md">Matchups</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 border-t border-outline-variant flex flex-col gap-2">
+<button class="w-full bg-primary-container text-on-primary-container font-label-md text-label-md py-3 rounded-lg hover:brightness-110 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">download</span> Export Report
+            </button>
+<nav class="flex flex-col gap-1 mt-2">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 0;">help</span>
+                    Help Center
+                </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 0;">logout</span>
+                    Logout
+                </a>
+</nav>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col min-h-screen lg:ml-[280px]">
+<!-- Top Nav -->
+<header class="bg-surface shadow-[0px_4px_20px_rgba(231,111,81,0.08)] shadow-md flex justify-between items-center w-full px-gutter h-16 sticky top-0 z-50 bg-surface/95 backdrop-blur-sm">
+<div class="flex items-center gap-6">
+<!-- Mobile Menu Button -->
+<button class="lg:hidden text-primary p-2 -ml-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="text-headline-md font-headline-lg text-primary tracking-tight hidden md:block">IPL Insights Lab</div>
+<!-- Desktop Nav Links -->
+<nav class="hidden lg:flex items-center gap-6 ml-8 h-full">
+<a class="h-full flex items-center text-tertiary font-medium hover:text-primary-container transition-colors duration-200 cursor-pointer active:scale-95 transition-transform font-label-md text-label-md" href="#">Match Center</a>
+<a class="h-full flex items-center text-tertiary font-medium hover:text-primary-container transition-colors duration-200 cursor-pointer active:scale-95 transition-transform font-label-md text-label-md" href="#">Fantasy Pro</a>
+<a class="h-full flex items-center text-tertiary font-medium hover:text-primary-container transition-colors duration-200 cursor-pointer active:scale-95 transition-transform font-label-md text-label-md" href="#">Archives</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<!-- Search Box (on_right) -->
+<div class="hidden md:flex relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors pointer-events-none">search</span>
+<input class="bg-[#fff9f0] border border-outline-variant text-on-surface rounded-full py-2 pl-10 pr-4 text-body-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all w-64" placeholder="Search players, venues..." type="text"/>
+</div>
+<!-- Trailing Icons -->
+<div class="flex items-center gap-2">
+<button class="p-2 text-tertiary hover:text-primary-container transition-colors rounded-full hover:bg-surface-container-high active:scale-95 transition-transform">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-tertiary hover:text-primary-container transition-colors rounded-full hover:bg-surface-container-high active:scale-95 transition-transform">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<!-- Profile -->
+<button class="ml-2 border-2 border-transparent hover:border-primary-container rounded-full transition-colors active:scale-95 transition-transform">
+<img alt="Analyst Profile" class="w-8 h-8 rounded-full object-cover" data-alt="A professional headshot of a cricket data analyst, bright lighting, clean studio background, wearing a neat polo shirt." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_d8J8IDdOopUycvmh1a6Ur15yF_fNO1UPBBXJaU5Sg_ZlM4uXDNQdZ0rrAlVG4BNKEmhL2TS9vsRDN9odwqSFv7PAIWqUAenH0XhyDiMcmBknyCgDWB6mQGH9OPKeMvWVzXx7K7jw2dBrrZ5XPH6_XPS0OMWh21NYOLQI9u_96MW8rkmYtlyZ_TWC9SXEGNJelhy9tXcwk3Flk0wekjHIeg4khYHjWZk2W0loxSs-cn5COhmz0hmNmw"/>
+</button>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 p-4 md:p-gutter overflow-y-auto">
+<div class="max-w-container-max mx-auto space-y-lg pb-12">
+<!-- Header -->
+<div>
+<h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background mb-2">Venue Impact</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Wankhede Stadium, Mumbai</p>
+</div>
+<!-- Metrics Row -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-base">
+<!-- Metric 1 -->
+<div class="bg-surface rounded-xl p-6 ambient-shadow lift-on-hover border border-white">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2">Matches</p>
+<p class="font-display-lg text-display-lg text-on-background">74</p>
+<div class="mt-4 h-1 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-full"></div>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="bg-surface rounded-xl p-6 ambient-shadow lift-on-hover border border-white">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2">Batting-first wins</p>
+<p class="font-display-lg text-display-lg text-primary">38</p>
+<div class="mt-4 h-1 w-full bg-surface-container-high rounded-full overflow-hidden flex">
+<div class="h-full bg-primary w-[51.4%]"></div>
+<div class="h-full bg-secondary w-[48.6%]"></div>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="bg-surface rounded-xl p-6 ambient-shadow lift-on-hover border border-white">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2">Batting-first win rate %</p>
+<p class="font-display-lg text-display-lg text-on-background">51.4<span class="text-headline-md font-headline-md text-on-surface-variant ml-1">%</span></p>
+</div>
+<!-- Metric 4 -->
+<div class="bg-surface rounded-xl p-6 ambient-shadow lift-on-hover border border-white">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2">Avg first-innings runs</p>
+<p class="font-display-lg text-display-lg text-on-background">168</p>
+<div class="mt-4 flex items-center text-secondary font-label-sm text-label-sm gap-1">
+<span class="material-symbols-outlined text-[16px]">trending_up</span> High Scoring
+                        </div>
+</div>
+</div>
+<!-- Bento Grid Layout for Charts & Tables -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Chart Section -->
+<div class="lg:col-span-1 bg-surface rounded-xl p-8 ambient-shadow border border-white flex flex-col h-[500px]">
+<h3 class="font-headline-md text-headline-md text-on-background mb-8">Win split at this venue</h3>
+<div class="flex-1 flex items-end justify-center gap-12 pb-8 relative mt-auto">
+<!-- Y Axis lines (decorative) -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none pb-8 z-0">
+<div class="w-full border-b border-surface-container-high"></div>
+<div class="w-full border-b border-surface-container-high"></div>
+<div class="w-full border-b border-surface-container-high"></div>
+<div class="w-full border-b border-surface-container-high"></div>
+<div class="w-full border-b border-surface-container-high"></div>
+</div>
+<!-- Bar 1 -->
+<div class="flex flex-col items-center group z-10">
+<span class="font-headline-md text-headline-md text-on-background mb-2 opacity-0 group-hover:opacity-100 transition-opacity">38</span>
+<div class="w-16 bg-primary rounded-t-lg h-[240px] shadow-[0_0_15px_rgba(231,111,81,0.3)] transition-all duration-300 hover:brightness-110 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-4 uppercase tracking-wider text-center">Batting<br/>first</span>
+</div>
+<!-- Bar 2 -->
+<div class="flex flex-col items-center group z-10">
+<span class="font-headline-md text-headline-md text-on-background mb-2 opacity-0 group-hover:opacity-100 transition-opacity">36</span>
+<div class="w-16 bg-tertiary rounded-t-lg h-[220px] shadow-[0_0_15px_rgba(67,99,112,0.3)] transition-all duration-300 hover:brightness-110 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-4 uppercase tracking-wider text-center">Chasing</span>
+</div>
+</div>
+</div>
+<!-- Data Table Section -->
+<div class="lg:col-span-2 bg-surface rounded-xl ambient-shadow border border-white overflow-hidden flex flex-col h-[500px]">
+<div class="p-6 border-b border-surface-container-high flex justify-between items-center bg-white/50 backdrop-blur-sm sticky top-0 z-20">
+<h3 class="font-headline-md text-headline-md text-on-background">Top batters at the selected venue</h3>
+<button class="p-2 text-tertiary hover:text-primary transition-colors rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+<div class="overflow-auto flex-1 custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 bg-surface-container-low z-10">
+<tr>
+<th class="py-4 px-6 font-label-md text-label-md text-tertiary uppercase tracking-wider font-semibold border-b border-surface-container-high">Batter</th>
+<th class="py-4 px-6 font-label-md text-label-md text-tertiary uppercase tracking-wider font-semibold border-b border-surface-container-high text-right">Runs</th>
+<th class="py-4 px-6 font-label-md text-label-md text-tertiary uppercase tracking-wider font-semibold border-b border-surface-container-high text-right">Balls</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md text-on-background">
+<tr class="table-row-hover border-b border-surface-container cursor-pointer transition-colors">
+<td class="py-3 px-6 font-headline-md text-[18px]">Rohit Sharma</td>
+<td class="py-3 px-6 text-right font-label-md">1,944</td>
+<td class="py-3 px-6 text-right font-label-md text-on-surface-variant">1,450</td>
+</tr>
+<tr class="table-row-hover border-b border-surface-container bg-surface-bright cursor-pointer transition-colors">
+<td class="py-3 px-6 font-headline-md text-[18px]">Virat Kohli</td>
+<td class="py-3 px-6 text-right font-label-md">842</td>
+<td class="py-3 px-6 text-right font-label-md text-on-surface-variant">610</td>
+</tr>
+<tr class="table-row-hover border-b border-surface-container cursor-pointer transition-colors">
+<td class="py-3 px-6 font-headline-md text-[18px]">Suryakumar Yadav</td>
+<td class="py-3 px-6 text-right font-label-md">780</td>
+<td class="py-3 px-6 text-right font-label-md text-on-surface-variant">480</td>
+</tr>
+<tr class="table-row-hover border-b border-surface-container bg-surface-bright cursor-pointer transition-colors">
+<td class="py-3 px-6 font-headline-md text-[18px]">KL Rahul</td>
+<td class="py-3 px-6 text-right font-label-md">650</td>
+<td class="py-3 px-6 text-right font-label-md text-on-surface-variant">490</td>
+</tr>
+<tr class="table-row-hover border-b border-surface-container cursor-pointer transition-colors">
+<td class="py-3 px-6 font-headline-md text-[18px]">Shikhar Dhawan</td>
+<td class="py-3 px-6 text-right font-label-md">610</td>
+<td class="py-3 px-6 text-right font-label-md text-on-surface-variant">485</td>
+</tr>
+<tr class="table-row-hover border-b border-surface-container bg-surface-bright cursor-pointer transition-colors">
+<td class="py-3 px-6 font-headline-md text-[18px]">Hardik Pandya</td>
+<td class="py-3 px-6 text-right font-label-md">580</td>
+<td class="py-3 px-6 text-right font-label-md text-on-surface-variant">360</td>
+</tr>
+<tr class="table-row-hover border-b border-surface-container cursor-pointer transition-colors">
+<td class="py-3 px-6 font-headline-md text-[18px]">MS Dhoni</td>
+<td class="py-3 px-6 text-right font-label-md">540</td>
+<td class="py-3 px-6 text-right font-label-md text-on-surface-variant">390</td>
+</tr>
+<tr class="table-row-hover border-b border-surface-container bg-surface-bright cursor-pointer transition-colors">
+<td class="py-3 px-6 font-headline-md text-[18px]">Ishan Kishan</td>
+<td class="py-3 px-6 text-right font-label-md">490</td>
+<td class="py-3 px-6 text-right font-label-md text-on-surface-variant">350</td>
+</tr>
+<tr class="table-row-hover border-b border-surface-container cursor-pointer transition-colors">
+<td class="py-3 px-6 font-headline-md text-[18px]">Sanju Samson</td>
+<td class="py-3 px-6 text-right font-label-md">420</td>
+<td class="py-3 px-6 text-right font-label-md text-on-surface-variant">310</td>
+</tr>
+<tr class="table-row-hover border-b border-surface-container bg-surface-bright cursor-pointer transition-colors">
+<td class="py-3 px-6 font-headline-md text-[18px]">Shreyas Iyer</td>
+<td class="py-3 px-6 text-right font-label-md">390</td>
+<td class="py-3 px-6 text-right font-label-md text-on-surface-variant">305</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<style>
+        /* Custom scrollbar for data tables to keep it minimal */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f0f3ff;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #dce2f3;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #c6e8f8;
+        }
+    </style>
+</body></html>
