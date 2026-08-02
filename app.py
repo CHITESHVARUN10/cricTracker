@@ -97,6 +97,20 @@ html, body, [data-testid="stAppViewContainer"] {
   color: #151c27 !important;
   font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
+
+/* Hide Streamlit's black top toolbar (Deploy/Menu bar) */
+[data-testid="stHeader"] {
+  background: transparent !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+[data-testid="stDecoration"] {
+  display: none !important;
+}
+[data-testid="stToolbar"] {
+  display: none !important;
+}
+
 [data-testid="stSidebar"] {
   background: #f9f9ff !important;
   border-right: 1px solid #dec0b9;
@@ -125,6 +139,114 @@ html, body, [data-testid="stAppViewContainer"] {
   color: #a33d23;
   letter-spacing: -0.01em;
 }
+.ipl-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.ipl-nav a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: #436370;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.ipl-nav a:hover { color: #e76f51; }
+
+/* ── Sidebar brand (from 04_venue.html sidebar) ── */
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 4px 16px 4px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #dec0b9;
+}
+.brand-logo {
+  width: 40px; height: 40px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #a33d23, #e76f51);
+  color: #ffffff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+.brand-title {
+  font-family: 'Archivo Narrow', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #a33d23;
+  line-height: 1.15;
+}
+.brand-tagline {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #57423d;
+  margin-top: 3px;
+  line-height: 1.2;
+}
+
+/* ── Header extras (search + icons, from 04_venue.html) ── */
+.ipl-header-left {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.ipl-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ipl-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff9f0;
+  border: 1px solid #dec0b9;
+  border-radius: 9999px;
+  padding: 8px 16px;
+  min-width: 240px;
+}
+.ipl-search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  color: #151c27;
+  width: 100%;
+}
+.ipl-search input::placeholder { color: #8a716c; }
+.search-icon { color: #57423d; font-size: 14px; }
+.header-icon {
+  font-size: 18px;
+  color: #436370;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.header-icon:hover { color: #e76f51; }
+.header-avatar {
+  width: 32px; height: 32px;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background: #f0f3ff;
+  color: #436370;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  transition: border-color 0.2s ease;
+}
+.header-avatar:hover { border-color: #e76f51; }
 
 /* ── Page title ── */
 .page-title {
@@ -137,9 +259,9 @@ html, body, [data-testid="stAppViewContainer"] {
 }
 .page-subtitle {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.6;
   color: #57423d;
   margin-bottom: 24px;
 }
@@ -233,7 +355,7 @@ html, body, [data-testid="stAppViewContainer"] {
 
 /* ── Content card ── */
 .content-card {
-  background: #ffffff;
+  background: #f9f9ff;
   border-radius: 0.75rem;
   box-shadow: var(--shadow-ambient);
   padding: 24px;
@@ -271,6 +393,7 @@ html, body, [data-testid="stAppViewContainer"] {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  box-shadow: var(--shadow-ambient);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .metric-card:hover {
@@ -500,6 +623,27 @@ html, body, [data-testid="stAppViewContainer"] {
   vertical-align: middle;
 }
 
+/* ── Player avatar (matchups profile pictures) ── */
+.player-avatar,
+.player-avatar-img {
+  width: 44px; height: 44px;
+  border-radius: 9999px;
+  color: #ffffff;
+  font-family: 'Archivo Narrow', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  flex-shrink: 0;
+}
+.player-avatar-img {
+  object-fit: cover;
+  background: #f0f3ff;
+}
+
 /* ── Raw data expander ── */
 details.raw-data summary {
   font-family: 'Archivo Narrow', sans-serif;
@@ -521,6 +665,193 @@ details.raw-data {
   margin-top: 24px;
 }
 
+/* ── Main-area horizontal tab strip (Stitch-style nav) ── */
+/* Hide Streamlit's default radio chrome; render a clean white tab bar */
+[data-testid="stMainBlockContainer"] div[role="radiogroup"] {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: space-between;
+  width: 100%;
+  max-width: none;
+  gap: 0;
+  background: #ffffff;
+  border: 1px solid #dec0b9;
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-ambient);
+  padding: 6px;
+  margin-bottom: 24px;
+}
+[data-testid="stMainBlockContainer"] div[role="radiogroup"] label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 10px 8px;
+  border-radius: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: #57423d;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+[data-testid="stMainBlockContainer"] div[role="radiogroup"] label:hover {
+  background: #f0f3ff;
+  color: #151c27;
+}
+[data-testid="stMainBlockContainer"] div[role="radiogroup"] label:has(input:checked) {
+  background: #e7eefe;
+  color: #a33d23;
+  font-weight: 700;
+  box-shadow: inset 0 -2px 0 #a33d23;
+}
+[data-testid="stMainBlockContainer"] div[role="radiogroup"] label > div:first-child {
+  display: none;
+}
+
+/* ── Readability pass: force dark text on light backgrounds ── */
+/* Global: prevent any element inheriting a light text color that vanishes
+   against the cream/white background. Accents (terracotta/teal) stay where
+   they are intentionally colored (handled below with targeted rules). */
+[data-testid="stMainBlockContainer"],
+[data-testid="stSidebar"] {
+  color: #151c27 !important;
+}
+[data-testid="stMainBlockContainer"] p,
+[data-testid="stMainBlockContainer"] li,
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] li {
+  color: #151c27 !important;
+}
+/* Widget inner text (selects, radios, sliders, inputs) — always dark */
+[data-testid="stSelectbox"] div,
+[data-testid="stMultiSelect"] div,
+[data-testid="stRadio"] div,
+[data-testid="stCheckbox"] div,
+[data-testid="stNumberInput"] div,
+[data-testid="stTextInput"] div,
+[data-testid="stSlider"] div {
+  color: #151c27 !important;
+}
+/* Headings keep their design tokens but always dark enough to read */
+[data-testid="stMainBlockContainer"] h1,
+[data-testid="stMainBlockContainer"] h2,
+[data-testid="stMainBlockContainer"] h3,
+[data-testid="stMainBlockContainer"] h4 {
+  color: #151c27 !important;
+}
+[data-testid="stMainBlockContainer"] .page-title,
+[data-testid="stMainBlockContainer"] .page-subtitle,
+[data-testid="stMainBlockContainer"] .card-title,
+[data-testid="stMainBlockContainer"] .section-title,
+[data-testid="stMainBlockContainer"] .card-section-label,
+[data-testid="stMainBlockContainer"] .tab-section-header {
+  color: #151c27 !important;
+}
+/* Custom table text */
+[data-testid="stMainBlockContainer"] .ipl-table,
+[data-testid="stMainBlockContainer"] .ipl-table th,
+[data-testid="stMainBlockContainer"] .ipl-table td,
+[data-testid="stMainBlockContainer"] .custom-table,
+[data-testid="stMainBlockContainer"] .custom-table th,
+[data-testid="stMainBlockContainer"] .custom-table td {
+  color: #151c27 !important;
+}
+[data-testid="stMainBlockContainer"] .ipl-table thead th,
+[data-testid="stMainBlockContainer"] .custom-table th {
+  color: #436370 !important;
+}
+/* Metric / phase / kpi labels + values */
+/* Values keep their design colors (dark #151c27 by default; terracotta
+   accents set via inline style on specific cards are preserved). */
+[data-testid="stMainBlockContainer"] .metric-label,
+[data-testid="stMainBlockContainer"] .kpi-label,
+[data-testid="stMainBlockContainer"] .phase-label {
+  color: #436370 !important;
+}
+/* Sidebar controls (slider labels, select labels, buttons) */
+[data-testid="stSidebar"] .sidebar-header,
+[data-testid="stSidebar"] .sidebar-desc,
+[data-testid="stSidebar"] .filter-label,
+[data-testid="stSidebar"] .brand-title,
+[data-testid="stSidebar"] .brand-tagline {
+  color: #151c27 !important;
+}
+/* Streamlit widgets: any text inside select/radio/checkbox must be dark */
+[data-testid="stSelectbox"] div,
+[data-testid="stMultiSelect"] div,
+[data-testid="stRadio"] div,
+[data-testid="stCheckbox"] div,
+[data-testid="stNumberInput"] div,
+[data-testid="stTextInput"] div,
+[data-testid="stSlider"] div {
+  color: #151c27 !important;
+}
+/* Dropdown list + selected pill (BaseWeb) */
+[data-testid="stSelectbox"] [data-baseweb="popover"] [role="listbox"] {
+  background: #ffffff !important;
+  color: #151c27 !important;
+}
+[data-testid="stSelectbox"] [data-baseweb="popover"] [role="option"] {
+  color: #151c27 !important;
+}
+[data-testid="stSelectbox"] [data-baseweb="popover"] [role="option"]:hover,
+[data-testid="stSelectbox"] [data-baseweb="popover"] [role="option"][aria-selected="true"] {
+  background: #e7eefe !important;
+  color: #a33d23 !important;
+}
+[data-testid="stSelectbox"] [data-baseweb="select"] span,
+[data-testid="stSelectbox"] [data-baseweb="select"] div {
+  color: #151c27 !important;
+}
+[data-testid="stSelectbox"] [data-baseweb="select"] > div {
+  background: #ffffff !important;
+}
+/* The selected-value text itself (BaseWeb renders it as input value / span) */
+[data-testid="stSelectbox"] input {
+  color: #151c27 !important;
+  caret-color: #151c27 !important;
+}
+[data-testid="stSelectbox"] input::placeholder {
+  color: #8a716c !important;
+  opacity: 1 !important;
+}
+[data-testid="stSelectbox"] [data-baseweb="tag"] span,
+[data-testid="stSelectbox"] [data-baseweb="tag"] div {
+  color: #151c27 !important;
+}
+[data-testid="stSelectbox"] [data-baseweb="select"] [role="button"] {
+  color: #151c27 !important;
+}
+/* Slider labels/values */
+[data-testid="stSlider"] [data-baseweb="slider"] {
+  color: #151c27 !important;
+}
+[data-testid="stSlider"] [role="slider"] {
+  color: #151c27 !important;
+}
+/* Buttons */
+button[kind="secondary"] {
+  color: #151c27 !important;
+  background: #ffffff !important;
+  border: 1px solid #dec0b9 !important;
+}
+button[kind="primary"] {
+  background: #e76f51 !important;
+  color: #ffffff !important;
+}
+/* Expander text */
+[data-testid="stExpander"] summary,
+[data-testid="stExpander"] span {
+  color: #151c27 !important;
+}
+
 /* ── Streamlit overrides ── */
 [data-testid="stTabs"] [data-baseweb="tab"] {
   font-family: 'JetBrains Mono', monospace !important;
@@ -532,6 +863,7 @@ details.raw-data {
 [data-testid="stTabs"] [aria-selected="true"] {
   color: #a33d23 !important;
   border-bottom-color: #a33d23 !important;
+  border-bottom-width: 2px !important;
   font-weight: 700 !important;
 }
 [data-testid="stSelectbox"] label,
@@ -544,11 +876,34 @@ details.raw-data {
   color: #151c27 !important;
 }
 [data-testid="stSelectbox"] > div > div {
-  background: #fff9f0 !important;
+  background: #ffffff !important;
   border: 1px solid #dec0b9 !important;
   border-radius: 0.5rem !important;
   font-family: 'Plus Jakarta Sans', sans-serif !important;
   font-size: 14px !important;
+  color: #151c27 !important;
+}
+[data-testid="stSelectbox"] > div > div > div {
+  color: #151c27 !important;
+}
+[data-testid="stSelectbox"] [data-baseweb="select"] > div {
+  background-color: #ffffff !important;
+}
+[data-testid="stSelectbox"] [data-baseweb="select"] span {
+  color: #151c27 !important;
+}
+/* Dropdown list (options) readability */
+[data-testid="stSelectbox"] [data-baseweb="popover"] [role="listbox"] {
+  background: #ffffff !important;
+  color: #151c27 !important;
+}
+[data-testid="stSelectbox"] [data-baseweb="popover"] [role="option"] {
+  color: #151c27 !important;
+}
+[data-testid="stSelectbox"] [data-baseweb="popover"] [role="option"]:hover,
+[data-testid="stSelectbox"] [data-baseweb="popover"] [role="option"][aria-selected="true"] {
+  background: #e7eefe !important;
+  color: #a33d23 !important;
 }
 [data-testid="stSelectbox"] > div > div:focus-within {
   border-color: #a33d23 !important;
@@ -566,13 +921,57 @@ h1, h2, h3 { font-family: 'Archivo Narrow', sans-serif !important; }
 </style>
 """, unsafe_allow_html=True)
 
+# ─── TOP HEADER BAR (from 01_shell.html / 04_venue.html) ──────────────────────
+st.markdown("""
+<div class="ipl-header">
+  <div class="ipl-header-left">
+    <div class="ipl-logo">IPL Insights Lab</div>
+    <nav class="ipl-nav">
+      <a href="#">Match Center</a>
+      <a href="#">Fantasy Pro</a>
+      <a href="#">Archives</a>
+    </nav>
+  </div>
+  <div class="ipl-header-right">
+    <div class="ipl-search">
+      <span class="search-icon">🔍</span>
+      <input placeholder="Search players, venues..." />
+    </div>
+    <span class="header-icon">🔔</span>
+    <span class="header-icon">⚙️</span>
+    <div class="header-avatar">👤</div>
+  </div>
+</div>
+""", unsafe_allow_html=True)
+
 # ─── LOAD DATA ────────────────────────────────────────────────────────────────
 with st.spinner("Loading IPL data…"):
     matches = load_matches()
     balls   = load_balls()
+    players = load_players()
 
-# ─── SIDEBAR FILTERS (from 01_shell.html) ─────────────────────────────────────
+# Player image lookup (imgUrl from 2024_players_details.csv) for avatars
+player_img = {}
+if players is not None and not players.empty and "imgUrl" in players.columns:
+    for _, row in players.dropna(subset=["imgUrl"]).iterrows():
+        key = str(row.get("Name", "")).strip()
+        if key:
+            player_img[key] = str(row["imgUrl"]).strip()
+
+# ─── SIDEBAR (from 01_shell.html / 04_venue.html) ─────────────────────────────
 with st.sidebar:
+    # Logo block (mirror venue screen sidebar) — aligned with the brand
+    st.markdown("""
+    <div class="sidebar-brand">
+      <div class="brand-logo">🏏</div>
+      <div class="brand-text">
+        <div class="brand-title">Cricket Analytics</div>
+        <div class="brand-tagline">Precision Data Engine</div>
+      </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Filters section
     st.markdown("""
     <div class="sidebar-header">⚙ Filters</div>
     <p class="sidebar-desc">The dashboard updates all charts, tables, and player summaries from the selected slice.</p>
@@ -727,13 +1126,22 @@ for col, (label, value, bar_color, bar_pct) in zip(cols, kpi_data):
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-# ─── TAB NAVIGATION (01_shell screen order) ───────────────────────────────────
-tabs = st.tabs(["Overview", "Toss", "Venue", "Teams", "Players", "Insights Lab", "Phases", "Matchups"])
+# ─── PAGE NAVIGATION — horizontal tab strip in the main area ──────────────────
+# A visible, clickable nav strip (Stitch-style) sits at the top of the content
+# area; the radio below it is visually replaced by the strip via CSS.
+nav_selection = st.radio(
+    "Page",
+    ["📊 Overview", "🪙 Toss", "📍 Venue", "👥 Teams", "🙋 Players", "🔬 Insights Lab", "📈 Phases", "⚔️ Matchups"],
+    index=0,
+    label_visibility="collapsed",
+    key="main_nav",
+    horizontal=True,
+)
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TAB 1 — OVERVIEW (02_overview.html)
+# PAGE — OVERVIEW (02_overview.html)
 # ══════════════════════════════════════════════════════════════════════════════
-with tabs[0]:
+if nav_selection == "📊 Overview":
     st.markdown('<div class="page-title">Analytics Overview</div>', unsafe_allow_html=True)
     st.markdown('<div class="page-subtitle">Comprehensive match outcome data across seasons.</div>', unsafe_allow_html=True)
 
@@ -829,9 +1237,9 @@ with tabs[0]:
         st.markdown('</div>', unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TAB 2 — TOSS (03_toss.html)
+# PAGE — TOSS (03_toss.html)
 # ══════════════════════════════════════════════════════════════════════════════
-with tabs[1]:
+elif nav_selection == "🪙 Toss":
     st.markdown('<div class="page-title">Toss Analytics</div>', unsafe_allow_html=True)
     st.markdown('<div class="page-subtitle">Analyzing the impact of the coin toss on match outcomes. Explore how decisions to bat or field first influence winning probabilities across historical data.</div>', unsafe_allow_html=True)
 
@@ -964,9 +1372,9 @@ with tabs[1]:
         st.markdown('</div>', unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TAB 3 — VENUE (04_venue.html)
+# PAGE — VENUE (04_venue.html)
 # ══════════════════════════════════════════════════════════════════════════════
-with tabs[2]:
+elif nav_selection == "📍 Venue":
     # Venue selector
     venues_list = sorted(filt["venue"].dropna().unique().tolist())
     sel_v = st.selectbox("Select Venue", venues_list, key="venue_tab_sel") if venues_list else None
@@ -1077,9 +1485,9 @@ with tabs[2]:
             st.markdown('</div>', unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TAB 4 — TEAMS (05_teams.html)
+# PAGE — TEAMS (05_teams.html)
 # ══════════════════════════════════════════════════════════════════════════════
-with tabs[3]:
+elif nav_selection == "👥 Teams":
     all_team_names = sorted(pd.concat([filt["team1"], filt["team2"]]).dropna().unique().tolist())
     sel_t = st.selectbox("Select Team", all_team_names, key="team_tab_sel") if all_team_names else None
 
@@ -1179,9 +1587,9 @@ with tabs[3]:
         st.markdown('</div>', unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TAB 5 — PLAYERS (06_players.html)
+# PAGE — PLAYERS (06_players.html)
 # ══════════════════════════════════════════════════════════════════════════════
-with tabs[4]:
+elif nav_selection == "🙋 Players":
     st.markdown('<div class="content-card">', unsafe_allow_html=True)
 
     # ── Section A: Player leaders header
@@ -1212,12 +1620,32 @@ with tabs[4]:
     all_batters = sorted(cmp_balls["Batter"].dropna().unique().tolist())
     all_bowlers = sorted(cmp_balls["Bowler"].dropna().unique().tolist())
 
+    def _player_img_html(name):
+        if not name:
+            return ""
+        url = player_img.get(name.strip())
+        if url:
+            return f'<img class="player-avatar-img" src="{url}" alt="{name}" referrerpolicy="no-referrer" />'
+        initials = "".join(p[0] for p in name.replace(".", " ").split()[:2]).upper() or "?"
+        bg = f"hsl({(hash(name) % 360)}, 55%, 45%)"
+        return f'<div class="player-avatar" style="background:{bg};">{initials}</div>'
+
     pc1, pc2 = st.columns(2)
     with pc1:
         p1 = st.selectbox("🟠 Player 1", all_batters, index=0, key="p1_sel")
+        st.markdown(
+            f'<div style="display:flex;align-items:center;gap:10px;margin-top:8px;">{_player_img_html(p1)}'
+            f'<span class="filter-label">{p1}</span></div>',
+            unsafe_allow_html=True,
+        )
     with pc2:
         default_p2_idx = 1 if len(all_batters) > 1 else 0
         p2 = st.selectbox("🟢 Player 2", all_batters, index=default_p2_idx, key="p2_sel")
+        st.markdown(
+            f'<div style="display:flex;align-items:center;gap:10px;margin-top:8px;">{_player_img_html(p2)}'
+            f'<span class="filter-label">{p2}</span></div>',
+            unsafe_allow_html=True,
+        )
 
     def get_batter_stats(name, ball_df):
         b = ball_df[ball_df["Batter"] == name]
@@ -1350,9 +1778,9 @@ with tabs[4]:
     st.markdown('</div>', unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TAB 6 — INSIGHTS LAB (07_insights_lab.html)
+# PAGE — INSIGHTS LAB (07_insights_lab.html)
 # ══════════════════════════════════════════════════════════════════════════════
-with tabs[5]:
+elif nav_selection == "🔬 Insights Lab":
     st.markdown('<div class="page-title">Insights Lab</div>', unsafe_allow_html=True)
     st.markdown('<div class="page-subtitle">Venue deep dive, team comparison, and player form tracker in one place.</div>', unsafe_allow_html=True)
 
@@ -1565,9 +1993,9 @@ with tabs[5]:
     st.markdown('</div>', unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TAB 7 — PHASES (08_phases.html)
+# PAGE — PHASES (08_phases.html)
 # ══════════════════════════════════════════════════════════════════════════════
-with tabs[6]:
+elif nav_selection == "📈 Phases":
     st.markdown('<div class="page-title">Phases</div>', unsafe_allow_html=True)
     st.markdown('<div class="page-subtitle">Powerplay, middle overs, and death overs</div>', unsafe_allow_html=True)
 
@@ -1687,9 +2115,9 @@ with tabs[6]:
     st.markdown('</div>', unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TAB 8 — MATCHUPS (09_matchups.html)
+# PAGE — MATCHUPS (09_matchups.html)
 # ══════════════════════════════════════════════════════════════════════════════
-with tabs[7]:
+elif nav_selection == "⚔️ Matchups":
     st.markdown('<div class="content-card">', unsafe_allow_html=True)
     st.markdown("""
     <div style="border-bottom:1px solid rgba(220,226,243,0.2);padding-bottom:16px;margin-bottom:24px;">
@@ -1698,14 +2126,34 @@ with tabs[7]:
     </div>
     """, unsafe_allow_html=True)
 
-    # Player selectors
+    # Player selectors with profile images (imgUrl from players CSV, initials fallback)
+    def _player_avatar(name):
+        if not name:
+            return ""
+        url = player_img.get(name.strip())
+        if url:
+            return f'<img class="player-avatar-img" src="{url}" alt="{name}" referrerpolicy="no-referrer" />'
+        initials = "".join(p[0] for p in name.replace(".", " ").split()[:2]).upper() or "?"
+        bg = f"hsl({(hash(name) % 360)}, 55%, 45%)"
+        return f'<div class="player-avatar" style="background:{bg};">{initials}</div>'
+
     mu1, mu2 = st.columns(2)
     with mu1:
         all_batters_mu = sorted(filt_balls["Batter"].dropna().unique().tolist())
         mu_batter = st.selectbox("Batter", all_batters_mu, key="mu_batter")
+        st.markdown(
+            f'<div style="display:flex;align-items:center;gap:10px;margin-top:8px;">{_player_avatar(mu_batter)}'
+            f'<span class="filter-label">{mu_batter}</span></div>',
+            unsafe_allow_html=True,
+        )
     with mu2:
         all_bowlers_mu = sorted(filt_balls["Bowler"].dropna().unique().tolist())
         mu_bowler = st.selectbox("Bowler", all_bowlers_mu, key="mu_bowler")
+        st.markdown(
+            f'<div style="display:flex;align-items:center;gap:10px;margin-top:8px;">{_player_avatar(mu_bowler)}'
+            f'<span class="filter-label">{mu_bowler}</span></div>',
+            unsafe_allow_html=True,
+        )
 
     matchup_df = filt_balls[(filt_balls["Batter"] == mu_batter) & (filt_balls["Bowler"] == mu_bowler)]
     mu_runs = int(matchup_df["BatsmanRun"].sum())
