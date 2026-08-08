@@ -17,7 +17,12 @@ import streamlit as st
 import pandas as pd
 import os
 
-DATA_DIR = os.path.join(os.path.dirname(__file__), "IPL-DATASET", "csv")
+BASE_DIR = os.path.dirname(__file__)
+DATA_DIR = (
+    os.path.join(BASE_DIR, "IPL-DATASET", "csv")
+    if os.path.isdir(os.path.join(BASE_DIR, "IPL-DATASET", "csv"))
+    else os.path.join(BASE_DIR, "IPL-DATASET")
+)
 
 # ── Venue canonicalization ─────────────────────────────────────────────────────
 # Same stadium appears under multiple names/spellings across seasons

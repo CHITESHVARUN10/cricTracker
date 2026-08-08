@@ -46,6 +46,7 @@ Design tokens extracted DIRECTLY from stitch_screens/*.html:
 """
 
 import streamlit as st
+import streamlit.components.v1 as components
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
@@ -58,6 +59,53 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
+
+# ── Auto-recover sidebar if user hit the invisible collapse trap ──
+# Streamlit persists collapsed state in localStorage, so a restart alone
+# doesn't bring it back. This component forces it open on every load.
+components.html("""
+<script>
+(function(){
+  try{
+    var pdoc = window.parent.document;
+    var plocal = window.parent.localStorage;
+    try{
+      plocal.setItem('streamlitSidebarCollapsed','false');
+      plocal.removeItem('st.sidebarCollapsed');
+      // brute-force: any key that looks like sidebar collapsed -> reset
+      for(var i=0;i<plocal.length;i++){
+        var k=plocal.key(i);
+        if(k && k.toLowerCase().indexOf('sidebar')!==-1 && plocal.getItem(k)==='true'){
+          plocal.setItem(k,'false');
+        }
+      }
+    }catch(e){}
+    function forceOpen(){
+      var sb = pdoc.querySelector('[data-testid="stSidebar"]');
+      if(sb){
+        sb.style.transform='none';
+        sb.style.visibility='visible';
+        sb.style.display='flex';
+        sb.style.marginLeft='0';
+        sb.style.width='21rem';
+        sb.setAttribute('aria-expanded','true');
+      }
+      var expand = pdoc.querySelector('[data-testid="collapsedControl"]')
+                 || pdoc.querySelector('[data-testid="stSidebarCollapsedControl"]');
+      if(expand && expand.offsetParent!==null){
+        expand.click();
+        // after click, hide the toggle so it can't trap again
+        setTimeout(function(){ expand.style.display='none'; }, 100);
+      }
+    }
+    forceOpen();
+    setTimeout(forceOpen,100);
+    setTimeout(forceOpen,500);
+    setTimeout(forceOpen,1500);
+  }catch(e){}
+})();
+</script>
+""", height=0, width=0)
 
 # ─── GLOBAL CSS (extracted from stitch_screens HTML verbatim) ─────────────────
 st.markdown("""
@@ -98,17 +146,33 @@ html, body, [data-testid="stAppViewContainer"] {
   font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 
-/* Hide Streamlit's black top toolbar (Deploy/Menu bar) */
+/* Hide Streamlit's black top toolbar (Deploy/Menu bar) without creating an invisible click-trap */
 [data-testid="stHeader"] {
   background: transparent !important;
-  height: 0 !important;
-  overflow: hidden !important;
+  pointer-events: none !important;
+}
+[data-testid="stHeader"] * {
+  pointer-events: auto !important;
 }
 [data-testid="stDecoration"] {
   display: none !important;
 }
 [data-testid="stToolbar"] {
   display: none !important;
+}
+/* ── Sidebar must never be collapsible via an invisible button ── */
+[data-testid="stSidebarCollapseButton"],
+[data-testid="stSidebarCollapsedControl"],
+[data-testid="collapsedControl"] {
+  display: none !important;
+  pointer-events: none !important;
+}
+[data-testid="stSidebar"][aria-expanded="false"] {
+  transform: none !important;
+  visibility: visible !important;
+  display: flex !important;
+  margin-left: 0 !important;
+  width: 21rem !important;
 }
 
 [data-testid="stSidebar"] {
@@ -1433,56 +1497,53 @@ elif nav_selection == "📍 Venue":
 
         st.markdown("<br>", unsafe_allow_html=True)
 
-        # Bento: chart left (1/3) + table right (2/3)
+        venue_ball = balls[balls["ID"].isin(vm_ids)]
+        batter_stats = venue_ball.groupby("Batter").agg(
+            runs=("BatsmanRun","sum"),
+            balls_faced=("BallNumber","count"),
+        ).reset_index()
+        batter_stats = batter_stats[batter_stats["balls_faced"] >= 10].sort_values("runs", ascending=False).head(10)
+
+        rows_data = []
+        for _, row in batter_stats.iterrows():
+            rows_data.append({
+                "batter": row["Batter"],
+                "runs":   f'{row["runs"]:,}',
+                "balls":  f'{row["balls_faced"]:,}',
+            })
+
         vc1, vc2 = st.columns([1, 2])
 
         with vc1:
-            st.markdown('<div class="content-card" style="height:500px;">', unsafe_allow_html=True)
-            st.markdown('<div class="card-title">Win split at this venue</div>', unsafe_allow_html=True)
-            fig_wsplit = go.Figure(data=[
-                go.Bar(
-                    x=["Batting first", "Chasing"],
-                    y=[v_bat_wins, v_chase_wins],
-                    marker_color=["#a33d23", "#436370"],
-                    marker_line_width=0,
-                    text=[v_bat_wins, v_chase_wins],
-                    textposition="outside",
-                    textfont=dict(family="JetBrains Mono", size=13, color="#151c27"),
-                    hovertemplate="%{x}: %{y}<extra></extra>",
-                )
-            ])
-            plotly_layout(fig_wsplit, height=340)
-            fig_wsplit.update_layout(showlegend=False, bargap=0.5)
-            fig_wsplit.update_traces(marker_cornerradius=4)
-            st.plotly_chart(fig_wsplit, use_container_width=True, config={"displayModeBar": False})
-            st.markdown('</div>', unsafe_allow_html=True)
+            with st.container(border=True):
+                st.markdown('<div class="card-title">Win split at this venue</div>', unsafe_allow_html=True)
+                fig_wsplit = go.Figure(data=[
+                    go.Bar(
+                        x=["Batting first", "Chasing"],
+                        y=[v_bat_wins, v_chase_wins],
+                        marker_color=["#a33d23", "#436370"],
+                        marker_line_width=0,
+                        text=[v_bat_wins, v_chase_wins],
+                        textposition="outside",
+                        textfont=dict(family="JetBrains Mono", size=13, color="#151c27"),
+                        hovertemplate="%{x}: %{y}<extra></extra>",
+                    )
+                ])
+                plotly_layout(fig_wsplit, height=340)
+                fig_wsplit.update_layout(showlegend=False, bargap=0.5)
+                fig_wsplit.update_traces(marker_cornerradius=4)
+                st.plotly_chart(fig_wsplit, use_container_width=True, config={"displayModeBar": False})
 
         with vc2:
-            st.markdown('<div class="content-card" style="height:500px;overflow:hidden;">', unsafe_allow_html=True)
-            st.markdown('<div class="card-title">Top batters at this venue</div>', unsafe_allow_html=True)
-            venue_ball = balls[balls["ID"].isin(vm_ids)]
-            batter_stats = venue_ball.groupby("Batter").agg(
-                runs=("BatsmanRun","sum"),
-                balls_faced=("BallNumber","count"),
-            ).reset_index()
-            batter_stats = batter_stats[batter_stats["balls_faced"] >= 10].sort_values("runs", ascending=False).head(10)
-
-            rows_data = []
-            for _, row in batter_stats.iterrows():
-                rows_data.append({
-                    "batter": row["Batter"],
-                    "runs":   f'{row["runs"]:,}',
-                    "balls":  f'{row["balls_faced"]:,}',
-                })
-
-            st.markdown(render_table(
-                rows_data,
-                [("batter","Batter"),("runs","Runs"),("balls","Balls")],
-                right_cols={"runs","balls"},
-                primary_col="runs",
-                player_name_col="batter",
-            ), unsafe_allow_html=True)
-            st.markdown('</div>', unsafe_allow_html=True)
+            with st.container(border=True):
+                st.markdown('<div class="card-title">Top batters at this venue</div>', unsafe_allow_html=True)
+                st.markdown(render_table(
+                    rows_data,
+                    [("batter","Batter"),("runs","Runs"),("balls","Balls")],
+                    right_cols={"runs","balls"},
+                    primary_col="runs",
+                    player_name_col="batter",
+                ), unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
 # PAGE — TEAMS (05_teams.html)
