@@ -1,17 +1,17 @@
 import sys
 import pandas as pd
-from data_loader import load_ipl_data, get_filtered_data
+from data_loader import load_matches, load_balls, load_players, load_teams
 from style_utils import render_styled_table
 
 print("1. Testing data loader...")
-df_matches, df_deliveries, df_players, df_teams = load_ipl_data()
+df_matches = load_matches()
+df_deliveries = load_balls()
+df_players = load_players()
+df_teams = load_teams()
 print(f" Matches: {len(df_matches)}")
 print(f" Deliveries: {len(df_deliveries)}")
 print(f" Players: {len(df_players)}")
-
-print("\n2. Testing filter engine...")
-m_filt, d_filt = get_filtered_data(df_matches, df_deliveries, season_range=(2015, 2024), selected_venue="All", selected_team="All")
-print(f" Filtered Matches (2015-2024): {len(m_filt)}")
+print(f" Teams: {len(df_teams)}")
 
 print("\n3. Testing table rendering logic...")
 sample_df = pd.DataFrame([
