@@ -50,7 +50,7 @@ import streamlit.components.v1 as components
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
-from data_loader import load_matches, load_balls, load_players, load_teams
+from data_loader import load_matches, load_balls, load_players
 
 # ─── PAGE CONFIG ──────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -722,6 +722,8 @@ details.raw-data summary {
   justify-content: space-between;
   border-bottom: 1px solid rgba(220,226,243,0.3);
 }
+/* Plotly injects a stray bold "undefined" ghost title on every chart — hide it */
+.gtitle { display: none !important; }
 details.raw-data { 
   background: #f9f9ff;
   border-radius: 0.75rem;
@@ -775,8 +777,67 @@ details.raw-data {
   font-weight: 700;
   box-shadow: inset 0 -2px 0 #a33d23;
 }
-[data-testid="stMainBlockContainer"] div[role="radiogroup"] label > div:first-child {
-  display: none;
+[data-testid="stMainBlockContainer"] div[role="radiogroup"] label div div > div:not([data-testid="stMarkdownContainer"]) {
+  display: none !important;
+}
+
+/* ── Entrance animations (Stitch motion) ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes growWidth {
+  from { transform: scaleX(0); }
+  to   { transform: none; }
+}
+.kpi-card, .metric-card, .phase-card, .player-avatar-img, .team-logo-chip {
+  animation: fadeUp 0.4s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+[data-testid="stHorizontalBlock"] > div:nth-child(2) .kpi-card,
+[data-testid="stHorizontalBlock"] > div:nth-child(2) .metric-card,
+[data-testid="stHorizontalBlock"] > div:nth-child(2) .phase-card { animation-delay: 0.06s; }
+[data-testid="stHorizontalBlock"] > div:nth-child(3) .kpi-card,
+[data-testid="stHorizontalBlock"] > div:nth-child(3) .metric-card,
+[data-testid="stHorizontalBlock"] > div:nth-child(3) .phase-card { animation-delay: 0.12s; }
+[data-testid="stHorizontalBlock"] > div:nth-child(4) .kpi-card,
+[data-testid="stHorizontalBlock"] > div:nth-child(4) .metric-card,
+[data-testid="stHorizontalBlock"] > div:nth-child(4) .phase-card { animation-delay: 0.18s; }
+[data-testid="stHorizontalBlock"] > div:nth-child(5) .kpi-card,
+[data-testid="stHorizontalBlock"] > div:nth-child(5) .metric-card,
+[data-testid="stHorizontalBlock"] > div:nth-child(5) .phase-card { animation-delay: 0.24s; }
+.metric-mini-bar .fill,
+.kpi-bar-fill {
+  animation: growWidth 0.9s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  transform-origin: left center;
+}
+
+/* ── Hide Streamlit auto-closed empty card wrappers (stray strips) ── */
+div.content-card:not(:has(*)) {
+  display: none !important;
+}
+
+/* ── Team crest chip (Teams page) ── */
+.team-title-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.team-logo-chip {
+  width: 64px; height: 64px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #a33d23, #e76f51);
+  color: #ffffff;
+  font-family: 'Archivo Narrow', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(231,111,81,0.35);
+  box-shadow: var(--shadow-ambient);
+  flex-shrink: 0;
 }
 
 /* ── Readability pass: force dark text on light backgrounds ── */
@@ -1022,6 +1083,12 @@ if players is not None and not players.empty and "imgUrl" in players.columns:
         if key:
             player_img[key] = str(row["imgUrl"]).strip()
 
+def _team_logo(team_name):
+    """Team crest chip — terracotta gradient with team initials (offline-safe)."""
+    name = str(team_name).strip()
+    initials = "".join(w[0] for w in name.split()[:3]).upper() or "?"
+    return f'<div class="team-logo-chip" title="{name}">{initials}</div>'
+
 # ─── SIDEBAR (from 01_shell.html / 04_venue.html) ─────────────────────────────
 with st.sidebar:
     # Logo block (mirror venue screen sidebar) — aligned with the brand
@@ -1058,7 +1125,7 @@ with st.sidebar:
     sel_team = st.selectbox("Team", all_teams)
 
     st.markdown("<br>", unsafe_allow_html=True)
-    st.button("Apply Filters", type="primary", use_container_width=True)
+    st.button("Apply Filters", type="primary", width="stretch")
 
 # ─── APPLY FILTERS ────────────────────────────────────────────────────────────
 filt = matches[
@@ -1085,13 +1152,20 @@ def plotly_layout(fig, title="", height=300):
         plot_bgcolor="#ffffff",
         paper_bgcolor="#ffffff",
         font=dict(family="JetBrains Mono", size=12, color="#57423d"),
-        margin=dict(l=8, r=8, t=32 if title else 8, b=8),
+        margin=dict(l=8, r=8, t=44 if title else 30, b=8),
         height=height,
         showlegend=True,
+        hovermode="closest",
+        hoverlabel=dict(
+            bgcolor="#151c27",
+            bordercolor="#e76f51",
+            font=dict(family="JetBrains Mono", size=12, color="#ffffff"),
+        ),
         legend=dict(
             font=dict(family="JetBrains Mono", size=11, color="#57423d"),
             bgcolor="rgba(0,0,0,0)",
         ),
+        transition=dict(duration=400, easing="cubic-in-out"),
         xaxis=dict(
             gridcolor="#e2e8f8",
             zeroline=False,
@@ -1213,40 +1287,28 @@ if nav_selection == "📊 Overview":
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         st.markdown('<div class="card-title">Match outcome snapshot</div>', unsafe_allow_html=True)
 
-        # ── Chart 1: Match Result Types (vertical bar, from 02_overview.html)
-        st.markdown('<div class="card-section-label">Match Result Types</div>', unsafe_allow_html=True)
-        result_counts = filt["result"].value_counts()
-        result_map = {}
-        for k, v in result_counts.items():
-            key = str(k).strip().lower()
-            if "run" in key:
-                result_map["Runs"] = result_map.get("Runs", 0) + v
-            elif "wicket" in key:
-                result_map["Wickets"] = result_map.get("Wickets", 0) + v
-            elif "tie" in key or "super" in key:
-                result_map["Tie"] = result_map.get("Tie", 0) + v
-            else:
-                result_map["No Result"] = result_map.get("No Result", 0) + v
-
-        labels = ["Runs", "Wickets", "Tie", "No Result"]
-        values = [result_map.get(l, 0) for l in labels]
-        colors_bar = ["#a33d23","#e76f51","#ffb4a2","#ffdad2"]
+        # ── Chart 1: Player of the Match leaders (vertical bar)
+        st.markdown('<div class="card-section-label">Player of the Match — Top 10</div>', unsafe_allow_html=True)
+        potm = filt["player_of_match"].dropna().value_counts().head(10).reset_index()
+        potm.columns = ["player", "awards"]
+        potm = potm.iloc[::-1]
 
         fig1 = go.Figure(data=[
             go.Bar(
-                x=labels, y=values,
-                marker_color=colors_bar,
+                y=potm["player"],
+                x=potm["awards"],
+                orientation="h",
+                marker_color=bar_colors(len(potm), primary=True),
                 marker_line_width=0,
-                text=values,
-                textposition="outside",
-                textfont=dict(family="JetBrains Mono", size=11, color="#151c27"),
-                hovertemplate="%{x}: %{y}<extra></extra>",
+                text=potm["awards"].astype(str),
+                textposition="inside",
+                hovertemplate="%{y}: %{x} awards<extra></extra>",
             )
         ])
-        plotly_layout(fig1, height=260)
-        fig1.update_layout(showlegend=False, bargap=0.4)
+        plotly_layout(fig1, height=300)
+        fig1.update_layout(showlegend=False, bargap=0.35)
         fig1.update_traces(marker_cornerradius=4)
-        st.plotly_chart(fig1, use_container_width=True, config={"displayModeBar": False})
+        st.plotly_chart(fig1, width="stretch", config={"displayModeBar": False})
 
         # ── Bottom row: Venue win-rate + Matches per season
         c1, c2 = st.columns(2)
@@ -1272,14 +1334,13 @@ if nav_selection == "📊 Overview":
                     marker_line_width=0,
                     text=[f"{v:.1f}%" for v in venue_stats["win_rate"]],
                     textposition="inside",
-                    textfont=dict(family="JetBrains Mono", size=10, color="#ffffff"),
                     hovertemplate="%{y}: %{x:.1f}%<extra></extra>",
                 )
             ])
             plotly_layout(fig_v, height=280)
             fig_v.update_layout(showlegend=False)
             fig_v.update_xaxes(range=[0, 100], ticksuffix="%")
-            st.plotly_chart(fig_v, use_container_width=True, config={"displayModeBar": False})
+            st.plotly_chart(fig_v, width="stretch", config={"displayModeBar": False})
 
         with c2:
             st.markdown('<div class="card-section-label">Matches Per Season</div>', unsafe_allow_html=True)
@@ -1289,14 +1350,16 @@ if nav_selection == "📊 Overview":
                     x=season_counts["season"].astype(str),
                     y=season_counts["matches"],
                     mode="lines+markers",
-                    line=dict(color="#e76f51", width=3),
+                    line=dict(color="#e76f51", width=3, shape="spline"),
+                    fill="tozeroy",
+                    fillcolor="rgba(231,111,81,0.12)",
                     marker=dict(color="#e76f51", size=8, line=dict(color="#ffffff", width=2)),
                     hovertemplate="%{x}: %{y} matches<extra></extra>",
                 )
             ])
             plotly_layout(fig_s, height=280)
             fig_s.update_layout(showlegend=False)
-            st.plotly_chart(fig_s, use_container_width=True, config={"displayModeBar": False})
+            st.plotly_chart(fig_s, width="stretch", config={"displayModeBar": False})
 
         st.markdown('</div>', unsafe_allow_html=True)
 
@@ -1379,7 +1442,7 @@ elif nav_selection == "🪙 Toss":
                   <span class="hbar-value">{n_bat:,}</span>
                 </div>
                 <div class="hbar-track">
-                  <div class="hbar-fill" style="width:{n_bat/total*100:.1f}%;background:#66c2a5;">
+                  <div class="hbar-fill" style="width:{n_bat/total*100:.1f}%;background:#436370;">
                     <span>{n_bat/total*100:.1f}%</span>
                   </div>
                 </div>
@@ -1390,7 +1453,7 @@ elif nav_selection == "🪙 Toss":
                   <span class="hbar-value">{n_field:,}</span>
                 </div>
                 <div class="hbar-track">
-                  <div class="hbar-fill" style="width:{n_field/total*100:.1f}%;background:#fc8d62;">
+                  <div class="hbar-fill" style="width:{n_field/total*100:.1f}%;background:#e76f51;">
                     <span>{n_field/total*100:.1f}%</span>
                   </div>
                 </div>
@@ -1411,7 +1474,7 @@ elif nav_selection == "🪙 Toss":
                   <span class="hbar-value">{bat_pct2}%</span>
                 </div>
                 <div class="hbar-track">
-                  <div class="hbar-fill" style="width:{bat_pct2}%;background:linear-gradient(to right,#440154,#31688e);">
+                  <div class="hbar-fill" style="width:{bat_pct2}%;background:#a33d23;">
                     <span>{bat_pct2}%</span>
                   </div>
                 </div>
@@ -1422,7 +1485,7 @@ elif nav_selection == "🪙 Toss":
                   <span class="hbar-value">{field_pct}%</span>
                 </div>
                 <div class="hbar-track">
-                  <div class="hbar-fill" style="width:{field_pct}%;background:linear-gradient(to right,#35b779,#fde725);">
+                  <div class="hbar-fill" style="width:{field_pct}%;background:#006a60;">
                     <span>{field_pct}%</span>
                   </div>
                 </div>
@@ -1532,7 +1595,7 @@ elif nav_selection == "📍 Venue":
                 plotly_layout(fig_wsplit, height=340)
                 fig_wsplit.update_layout(showlegend=False, bargap=0.5)
                 fig_wsplit.update_traces(marker_cornerradius=4)
-                st.plotly_chart(fig_wsplit, use_container_width=True, config={"displayModeBar": False})
+                st.plotly_chart(fig_wsplit, width="stretch", config={"displayModeBar": False})
 
         with vc2:
             with st.container(border=True):
@@ -1568,7 +1631,12 @@ elif nav_selection == "👥 Teams":
         t_bat_win_pct = round(t_bat_wins / t_bat_total * 100, 1) if t_bat_total else 0
         t_chase_pct   = round(t_chase_wins / t_chase_total * 100, 1) if t_chase_total else 0
 
-        st.markdown(f'<div class="page-title">{sel_t}</div>', unsafe_allow_html=True)
+        st.markdown(f"""
+        <div class="team-title-row">
+          {_team_logo(sel_t)}
+          <div class="page-title" style="margin-bottom:0;">{sel_t}</div>
+        </div>
+        """, unsafe_allow_html=True)
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         st.markdown('<div class="card-title">Team performance</div>', unsafe_allow_html=True)
 
@@ -1622,7 +1690,7 @@ elif nav_selection == "👥 Teams":
             plotly_layout(fig_tc, height=240)
             fig_tc.update_layout(showlegend=False, bargap=0.5, yaxis=dict(range=[0, 110], ticksuffix="%"))
             fig_tc.update_traces(marker_cornerradius=4)
-            st.plotly_chart(fig_tc, use_container_width=True, config={"displayModeBar": False})
+            st.plotly_chart(fig_tc, width="stretch", config={"displayModeBar": False})
             st.markdown('</div>', unsafe_allow_html=True)
 
         with tc2:
@@ -1635,14 +1703,16 @@ elif nav_selection == "👥 Teams":
                     x=t_season["season"].astype(str),
                     y=t_season["wins"],
                     mode="lines+markers",
-                    line=dict(color="#2b4b58", width=2),
-                    marker=dict(color="#ffffff", size=6, line=dict(color="#2b4b58", width=2)),
+                    line=dict(color="#006a60", width=3, shape="spline"),
+                    fill="tozeroy",
+                    fillcolor="rgba(0,106,96,0.12)",
+                    marker=dict(color="#006a60", size=7, line=dict(color="#ffffff", width=2)),
                     hovertemplate="%{x}: %{y} wins<extra></extra>",
                 )
             ])
             plotly_layout(fig_ts, height=240)
             fig_ts.update_layout(showlegend=False)
-            st.plotly_chart(fig_ts, use_container_width=True, config={"displayModeBar": False})
+            st.plotly_chart(fig_ts, width="stretch", config={"displayModeBar": False})
             st.markdown('</div>', unsafe_allow_html=True)
 
         st.markdown('</div>', unsafe_allow_html=True)
@@ -1754,10 +1824,11 @@ elif nav_selection == "🙋 Players":
         textposition="outside",
         textfont=dict(family="JetBrains Mono", size=10, color="#151c27"),
     ))
-    plotly_layout(fig_cmp, title="Player comparison", height=280)
+    st.markdown('<div class="card-section-label">Player comparison — Runs, SR, Average, 4s & 6s</div>', unsafe_allow_html=True)
+    plotly_layout(fig_cmp, height=280)
     fig_cmp.update_layout(barmode="group", bargroupgap=0.1, bargap=0.4)
     fig_cmp.update_traces(marker_cornerradius=4)
-    st.plotly_chart(fig_cmp, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig_cmp, width="stretch", config={"displayModeBar": False})
 
     # Comparison table (06_players.html)
     cmp_rows = [
@@ -1852,7 +1923,7 @@ elif nav_selection == "🔬 Insights Lab":
         st.markdown('<div class="content-card">', unsafe_allow_html=True)
         st.markdown('<div class="card-title">🏟 Venue deep dive</div>', unsafe_allow_html=True)
 
-        # Horizontal bar chart for venues (cividis-ish colors)
+        # Horizontal bar chart for venues (Stitch terracotta palette)
         vstat = filt.copy()
         bat_fv = vstat[vstat["toss_decision"] == "bat"]
         bat_fv2 = bat_fv.copy()
@@ -1861,24 +1932,22 @@ elif nav_selection == "🔬 Insights Lab":
         vg["wr"] = vg["wins"] / vg["matches"] * 100
         vg = vg[vg["matches"] >= 5].sort_values("wr", ascending=True).head(8)
 
-        cividis = ["#00204d","#31446b","#666970","#958f78","#cbbe72","#ffea46","#fde725","#ffffa5"]
         fig_vdd = go.Figure(data=[
             go.Bar(
                 y=vg["venue"].str[:18],
                 x=vg["wr"].round(1),
                 orientation="h",
-                marker_color=cividis[:len(vg)],
+                marker_color=bar_colors(len(vg), primary=True),
                 marker_line_width=0,
                 text=[f"{v:.1f}%" for v in vg["wr"]],
                 textposition="inside",
-                textfont=dict(size=10, color="#ffffff"),
                 hovertemplate="%{y}: %{x:.1f}%<extra></extra>",
             )
         ])
         plotly_layout(fig_vdd, height=260)
         fig_vdd.update_layout(showlegend=False)
         fig_vdd.update_xaxes(range=[0,100], ticksuffix="%")
-        st.plotly_chart(fig_vdd, use_container_width=True, config={"displayModeBar": False})
+        st.plotly_chart(fig_vdd, width="stretch", config={"displayModeBar": False})
 
         # Venue table
         vg_full = bat_fv2.groupby("venue").agg(matches=("win","count"), wins=("win","sum")).reset_index()
@@ -1957,7 +2026,7 @@ elif nav_selection == "🔬 Insights Lab":
         plotly_layout(fig_tcmp, height=260)
         fig_tcmp.update_layout(barmode="group", bargroupgap=0.1, bargap=0.4, yaxis=dict(ticksuffix="%"))
         fig_tcmp.update_traces(marker_cornerradius=4)
-        st.plotly_chart(fig_tcmp, use_container_width=True, config={"displayModeBar": False})
+        st.plotly_chart(fig_tcmp, width="stretch", config={"displayModeBar": False})
 
         rows_tc = [
             {"t":"Team","m":"Mat","w":"Wins","b1w":"Bat 1st W","cw":"Chase W","wr":"WR","b1wr":"Bat 1st WR","cwr":"Chase WR"},
@@ -1998,11 +2067,13 @@ elif nav_selection == "🔬 Insights Lab":
             x=pform_runs["season"].astype(str), y=pform_runs["BatsmanRun"],
             mode="lines+markers",
             name="Runs",
-            line=dict(color="#e76f51", width=2),
-            marker=dict(color="#ffffff", size=4, line=dict(color="#e76f51", width=2)),
+            line=dict(color="#e76f51", width=3, shape="spline"),
+            fill="tozeroy",
+            fillcolor="rgba(231,111,81,0.12)",
+            marker=dict(color="#e76f51", size=6, line=dict(color="#ffffff", width=2)),
         ))
         plotly_layout(fig_pf, height=260)
-        st.plotly_chart(fig_pf, use_container_width=True, config={"displayModeBar": False})
+        st.plotly_chart(fig_pf, width="stretch", config={"displayModeBar": False})
 
         # Season stats table
         outs_by_season = filt_balls[(filt_balls["PlayerOut"]==form_player) & (filt_balls["IsWicketDelivery"]==1)]
@@ -2123,7 +2194,7 @@ elif nav_selection == "📈 Phases":
         plotly_layout(fig_prr, height=260)
         fig_prr.update_layout(showlegend=False, bargap=0.5)
         fig_prr.update_traces(marker_cornerradius=4)
-        st.plotly_chart(fig_prr, use_container_width=True, config={"displayModeBar": False})
+        st.plotly_chart(fig_prr, width="stretch", config={"displayModeBar": False})
         st.markdown('</div>', unsafe_allow_html=True)
 
     with pbc2:
@@ -2144,7 +2215,7 @@ elif nav_selection == "📈 Phases":
         plotly_layout(fig_pwk, height=260)
         fig_pwk.update_layout(showlegend=False, bargap=0.5)
         fig_pwk.update_traces(marker_cornerradius=4)
-        st.plotly_chart(fig_pwk, use_container_width=True, config={"displayModeBar": False})
+        st.plotly_chart(fig_pwk, width="stretch", config={"displayModeBar": False})
         st.markdown('</div>', unsafe_allow_html=True)
 
     # Bottom: Avg run rate by over (line chart from 08_phases.html)
@@ -2163,8 +2234,10 @@ elif nav_selection == "📈 Phases":
             x=(over_rr["Overs"] + 1).astype(str),
             y=over_rr["rr"],
             mode="lines+markers",
-            line=dict(color="#2a9d8f", width=3),
-            marker=dict(color="#ffffff", size=6, line=dict(color="#2a9d8f", width=2)),
+            line=dict(color="#006a60", width=3, shape="spline"),
+            fill="tozeroy",
+            fillcolor="rgba(0,106,96,0.12)",
+            marker=dict(color="#006a60", size=6, line=dict(color="#ffffff", width=2)),
             hovertemplate="Over %{x}: %{y:.2f} RR<extra></extra>",
         )
     ])
@@ -2172,7 +2245,7 @@ elif nav_selection == "📈 Phases":
     fig_ov.update_layout(showlegend=False)
     fig_ov.update_xaxes(title_text="Over")
     fig_ov.update_yaxes(title_text="Run Rate")
-    st.plotly_chart(fig_ov, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig_ov, width="stretch", config={"displayModeBar": False})
     st.markdown('</div>', unsafe_allow_html=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -2198,18 +2271,28 @@ elif nav_selection == "⚔️ Matchups":
         bg = f"hsl({(hash(name) % 360)}, 55%, 45%)"
         return f'<div class="player-avatar" style="background:{bg};">{initials}</div>'
 
+    # Sensible defaults: open on the highest-scoring batter vs top wicket-taker
+    all_batters_mu = sorted(filt_balls["Batter"].dropna().unique().tolist())
+    batter_runs = filt_balls.groupby("Batter")["BatsmanRun"].sum().sort_values(ascending=False)
+    default_batter = batter_runs.index[0] if len(batter_runs) else (all_batters_mu[0] if all_batters_mu else "")
+    all_bowlers_mu = sorted(filt_balls["Bowler"].dropna().unique().tolist())
+    bowler_wickets = filt_balls[filt_balls["IsWicketDelivery"] == 1].groupby("Bowler").size().sort_values(ascending=False)
+    default_bowler = bowler_wickets.index[0] if len(bowler_wickets) else (all_bowlers_mu[0] if all_bowlers_mu else "")
+
     mu1, mu2 = st.columns(2)
     with mu1:
-        all_batters_mu = sorted(filt_balls["Batter"].dropna().unique().tolist())
-        mu_batter = st.selectbox("Batter", all_batters_mu, key="mu_batter")
+        mu_batter = st.selectbox("Batter", all_batters_mu,
+                                 index=all_batters_mu.index(default_batter) if default_batter in all_batters_mu else 0,
+                                 key="mu_batter")
         st.markdown(
             f'<div style="display:flex;align-items:center;gap:10px;margin-top:8px;">{_player_avatar(mu_batter)}'
             f'<span class="filter-label">{mu_batter}</span></div>',
             unsafe_allow_html=True,
         )
     with mu2:
-        all_bowlers_mu = sorted(filt_balls["Bowler"].dropna().unique().tolist())
-        mu_bowler = st.selectbox("Bowler", all_bowlers_mu, key="mu_bowler")
+        mu_bowler = st.selectbox("Bowler", all_bowlers_mu,
+                                 index=all_bowlers_mu.index(default_bowler) if default_bowler in all_bowlers_mu else 0,
+                                 key="mu_bowler")
         st.markdown(
             f'<div style="display:flex;align-items:center;gap:10px;margin-top:8px;">{_player_avatar(mu_bowler)}'
             f'<span class="filter-label">{mu_bowler}</span></div>',
@@ -2274,7 +2357,7 @@ elif nav_selection == "⚔️ Matchups":
     fig_mu.update_layout(showlegend=False, bargap=0.3)
     fig_mu.update_xaxes(title_text="Runs off bat")
     fig_mu.update_traces(marker_cornerradius=4)
-    st.plotly_chart(fig_mu, use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(fig_mu, width="stretch", config={"displayModeBar": False})
     st.markdown('</div>', unsafe_allow_html=True)
 
 # ─── RAW DATA EXPANDER (01_shell.html bottom) ─────────────────────────────────
