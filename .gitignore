@@ -54,3 +54,6 @@ desktop.ini
 tmp/
 temp/
 .commandcode/
+
+# ── Nested duplicate repo (old launcher, removed) ─────────────────────────────
+cricTracker/
